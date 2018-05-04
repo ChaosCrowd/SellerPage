@@ -1,16 +1,16 @@
 <template>
-    <div id="loginBox">
+    <div>
         <form action="" method="post">
             <div class="container">
                 <div class="row">
-                    <input class="col-3" type="text" placeholder="Username" />
+                    <input class="col" type="text" placeholder="Username" />
                 </div>
                 <div class="row">
-                    <input class="col-3" type="password" placeholder="Password" />
+                    <input class="col" type="password" placeholder="Password" />
                 </div>
                 <div class="row">
-                    <input class="col-1" type="submit" />
-                    <router-link class="col-1">注册</router-link>
+                    <input class="col" type="submit" />
+                    <router-link class="col" to="/home">注册</router-link>
                 </div>
             </div>
         </form>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import loginBox from '@/components/loginBox'
+import loginPage from '@/components/loginPage'
 
 Vue.use(Router)
 
@@ -9,14 +9,14 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'HelloWorld',
       component: HelloWorld
     },
     {
       path: '/1',
       name: 'login',
-      component: loginBox
+      component: loginPage
     }
   ]
 })
