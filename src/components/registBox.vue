@@ -3,14 +3,19 @@
         <form action="" method="post">
             <div class="container">
                 <div class="row">
+                    <input class="col" type="text" placeholder="Phone" />
+                </div>
+                <div class="row">
+                    <input class="col" type="text" placeholder="Email" />
+                </div>
+                <div class="row">
                     <input class="col" type="text" placeholder="Username" />
                 </div>
                 <div class="row">
                     <input class="col" type="password" placeholder="Password" />
                 </div>
                 <div class="row">
-                    <input class="col" type="submit" value="登录"/>
-                    <router-link class="col" to="/regist">注册</router-link>
+                    <input class="col" type="submit" value="注册"/>
                 </div>
             </div>
         </form>
