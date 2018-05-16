@@ -1,13 +1,14 @@
 <template>
-  <div id="navBar">
+  <div id="homePage">
       <navBar></navBar>
   </div>
 </template>
 
 <script>
 import navBar from '@/components/navBar'
+// import addDish from '@/components/addDish'
 export default {
-  name: 'test',
+  name: 'homePage',
   components: {
     navBar
   }

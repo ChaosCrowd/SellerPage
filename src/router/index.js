@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import loginPage from '@/pages/loginPage'
 import registPage from '@/pages/registPage'
-import test from '@/pages/test'
+import homePage from '@/pages/homePage'
+import addDishBox from '@/components/addDishBox'
 
 Vue.use(Router)
 
@@ -12,10 +13,10 @@ export default new Router({
     {
       path: '/test',
       name: 'test',
-      component: test
+      component: homePage
     },
     {
-      path: '/home',
+      path: '/login',
       name: 'login',
       component: loginPage
     },
@@ -23,6 +24,17 @@ export default new Router({
       path: '/regist',
       name: 'regist',
       component: registPage
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: homePage,
+      children: [
+        {
+          path: 'addDish',
+          component: addDishBox
+        }
+      ]
     }
   ]
 })
