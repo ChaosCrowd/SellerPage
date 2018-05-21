@@ -112,7 +112,7 @@ export default {
 
 #divider {
   width: 80%;
-  margin: 5px auto 5px auto;
+  margin: 8px auto 8px auto;
   color: black;
 }
 </style>
