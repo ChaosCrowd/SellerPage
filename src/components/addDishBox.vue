@@ -41,8 +41,5 @@ export default {
 </script>
 
 <style>
-#addDishBox {
-  width: 25%;
-  margin: 100px 0 0 80px;
-}
+
 </style>

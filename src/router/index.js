@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import loginPage from '@/pages/loginPage'
 import registPage from '@/pages/registPage'
 import homePage from '@/pages/homePage'
-import addDishBox from '@/components/addDishBox'
+import dishManagePage from '@/pages/dishManagePage'
 
 Vue.use(Router)
 
@@ -31,8 +31,8 @@ export default new Router({
       component: homePage,
       children: [
         {
-          path: 'addDish',
-          component: addDishBox
+          path: 'dishManage',
+          component: dishManagePage
         }
       ]
     }
