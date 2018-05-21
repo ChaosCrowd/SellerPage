@@ -32,7 +32,6 @@ export default {
 
 #dishList {
   position: relative;
-  width: 40%;
   left: 45%;
   top: -250px;
 }
