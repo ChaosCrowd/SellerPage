@@ -4,13 +4,13 @@
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <b-navbar-brand href="/login">NavBar</b-navbar-brand>
+      <b-navbar-brand href="/login">码上点餐</b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
         <b-navbar-nav>
-          <b-nav-item href="/home/addDish">Link</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <b-nav-item href="/home/dishManage">管理菜品</b-nav-item>
+          <b-nav-item href="#">管理订单</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

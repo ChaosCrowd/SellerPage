@@ -3,7 +3,14 @@
         <form action="" method="post">
             <div class="container">
                 <div class="row">
-                    <input class="col" type="text" placeholder="Phone" />
+                    <b-form-group
+                        id="phoneGroup"
+                        :invalid-feedback="invalidFeedback"
+                        :valid-feedback="validFeedback"
+                        :state="state"
+                    >
+                      <b-form-input id="phoneInput" :state="state" placeholder="电话号码" v-model.trim="name"></b-form-input>
+                    </b-form-group>
                 </div>
                 <div class="row">
                     <input class="col" type="text" placeholder="Email" />
