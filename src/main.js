@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import App from './App'
 import router from './router'
+// import store from './store/index'
 
 Vue.config.productionTip = false
 
@@ -18,6 +19,7 @@ Vue.http.options.root = 'https://private-924fb8-order51.apiary-mock.com'
 new Vue({
   el: '#app',
   router,
+  // store,
   components: { App },
   template: '<App/>'
 })

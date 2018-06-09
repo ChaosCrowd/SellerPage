@@ -33,6 +33,6 @@ export default {
 #dishList {
   position: relative;
   left: 45%;
-  top: -250px;
+  top: -300px;
 }
 </style>
