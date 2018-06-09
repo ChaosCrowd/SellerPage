@@ -1,3 +1,5 @@
+import categoryAPI from '../../api/categoryAPI' 
+
 const state = {
   all: []
 }
@@ -26,6 +28,6 @@ const mutations = {
 
 const actions = {
   getCategoryInfo ({ state, commit }) {
-    
+
   }
 }

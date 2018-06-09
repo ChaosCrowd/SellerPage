@@ -26,8 +26,10 @@
 </template>
 
 <script>
+import userAPI from '../api/userAPI'
+
 export default {
-  name: 'loginBox',
+  name: 'signinBox',
   data () {
     return {
       form: {
@@ -40,15 +42,18 @@ export default {
   methods: {
     onSubmit (evt) {
       evt.preventDefault()
-      this.$http.post('signin', this.form).then(response => {
-        if (response.status === 200) {
-          this.$router.push('/home/dishManage')
-        } else if (response.status === 403) {
-          this.label = '登录失败'
+      userAPI.signin(this.form,
+        response => {
+          if (response.status === 200) {
+            this.$router.push('/home/dishManage')
+          } else if (response.status === 403) {
+            this.label = '登录失败'
+          }
+        },
+        response => {
+          alert(JSON.stringify(response))
         }
-      }, response => {
-        alert(JSON.stringify(response))
-      })
+      )
     },
     onReset (evt) {
       evt.preventDefault()

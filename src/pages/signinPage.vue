@@ -1,21 +1,21 @@
 <template>
-  <div id="loginBox">
-      <loginBox></loginBox>
+  <div id="signinBox">
+      <signinBox></signinBox>
   </div>
 </template>
 
 <script>
-import loginBox from '@/components/loginBox'
+import signinBox from '@/components/signinBox'
 export default {
-  name: 'loginPage',
+  name: 'signinPage',
   components: {
-    loginBox
+    signinBox
   }
 }
 </script>
 
 <style>
-#loginBox {
+#signinBox {
   position: absolute;
   width: 180px;
   top: 30%;
