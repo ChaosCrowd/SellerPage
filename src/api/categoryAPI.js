@@ -5,7 +5,7 @@ Vue.use(VueResource)
 Vue.http.options.root = 'https://private-924fb8-order51.apiary-mock.com'
 
 export default {
-  getCategoryInfo(onSuccess, onError) {
+  getCategoryInfo (onSuccess, onError) {
     Vue.http.get('category').then(onSuccess, onError)
   }
 }

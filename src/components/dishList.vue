@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 class DishInfo {
   constructor (dishId, dishName, dishPrice, picPath, dishDcpt) {
     this.dishId = dishId
@@ -33,6 +35,7 @@ class DishInfo {
     this.dishDcpt = dishDcpt
   }
 }
+
 export default {
   name: 'dishList',
   data () {
@@ -43,42 +46,42 @@ export default {
           0,
           '番茄炒蛋',
           '998',
-          require('../assets/1.jpg'),
+          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
           '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
         ),
         new DishInfo(
           1,
           '西红柿炒蛋',
           '998',
-          require('../assets/1.jpg'),
+          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
           '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
         ),
         new DishInfo(
           1,
           '西红柿炒蛋',
           '998',
-          require('../assets/1.jpg'),
+          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
           '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
         ),
         new DishInfo(
           1,
           '西红柿炒蛋',
           '998',
-          require('../assets/1.jpg'),
+          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
           '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
         ),
         new DishInfo(
           1,
           '西红柿炒蛋',
           '998',
-          require('../assets/1.jpg'),
+          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
           '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
         ),
         new DishInfo(
           1,
           '西红柿炒蛋',
           '998',
-          require('../assets/1.jpg'),
+          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
           '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
         )
       ]
@@ -89,7 +92,13 @@ export default {
       return this.dishList.filter(dishInfo => {
         return dishInfo.dishName.toLowerCase().includes(this.search.toLowerCase())
       })
-    }
+    },
+    ...mapState({
+      categoryList: state => state.category.all
+    })
+  },
+  mounted () {
+    this.$store.dispatch('category/getCategoryInfo')
   }
 }
 </script>

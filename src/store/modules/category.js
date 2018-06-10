@@ -1,4 +1,4 @@
-import categoryAPI from '../../api/categoryAPI' 
+import categoryAPI from '../../api/categoryAPI'
 
 const state = {
   all: []
@@ -19,7 +19,7 @@ const mutations = {
     state.all.find(ele => (ele.id === category.id)).name = category.name
   },
 
-  delCategory(state, category) {
+  delCategory (state, category) {
     state.all = state.all.filter(ele => {
       return ele.id !== category.id
     })
@@ -28,6 +28,22 @@ const mutations = {
 
 const actions = {
   getCategoryInfo ({ state, commit }) {
-
+    categoryAPI.getCategoryInfo(response => {
+      if (response.status === 200) {
+        commit('getCategoryInfo', response.body.data)
+      } else if (response.status === 403) {
+        alert('getCategoryInfo fails!')
+      }
+    }, response => {
+      alert('getCategoryInfo fails!')
+    })
   }
+}
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
 }
