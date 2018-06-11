@@ -1,6 +1,7 @@
 <template>
   <div id="homePage">
-      <navBar></navBar>
+    <navBar></navBar>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -11,6 +12,9 @@ export default {
   name: 'homePage',
   components: {
     navBar
+  },
+  mounted () {
+    this.$store.dispatch('category/getCategoryInfo')
   }
 }
 </script>

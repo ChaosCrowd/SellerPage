@@ -9,8 +9,8 @@
       <b-collapse is-nav id="nav_collapse">
 
         <b-navbar-nav>
-          <b-nav-item href="/home/dishManage">管理菜品</b-nav-item>
-          <b-nav-item href="#">管理订单</b-nav-item>
+          <router-link to="/home/dishManage">管理菜品</router-link>
+          <router-link to="#">管理订单</router-link>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -32,10 +32,8 @@
             <b-dropdown-item href="#">Signout</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
-
       </b-collapse>
     </b-navbar>
-    <router-view></router-view>
   </div>
 </template>
 

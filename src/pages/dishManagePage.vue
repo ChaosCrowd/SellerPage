@@ -1,38 +1,42 @@
 <template>
   <div id="dishManagePage">
     <addDishBox></addDishBox>
-    <dishList></dishList>
+    <!-- <dishList></dishList> -->
+    <categoryList></categoryList>
   </div>
 </template>
 
 <script>
 import addDishBox from '@/components/addDishBox'
-import dishList from '@/components/dishList'
+// import dishList from '@/components/dishList'
+import categoryList from '@/components/categoryList'
 
 export default {
   name: 'dishManagePage',
   components: {
     addDishBox,
-    dishList
+    categoryList
   }
 }
 </script>
 
 <style>
 #dishManagePage {
-  position: absolute;
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
   width: 100%;
 }
 
 #addDishBox {
-  position: relative;
-  margin: 100px 0 0 100px;
-  width: 25%;
+  margin: 10% auto 0 auto;
+  width: 250px;
 }
 
-#dishList {
-  position: relative;
-  left: 45%;
-  top: -300px;
+#categoryList {
+  margin: 10% auto 0 auto;
+  width: 400px;
 }
+
 </style>

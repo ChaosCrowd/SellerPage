@@ -3,7 +3,7 @@
     <div id="search">
       <input type="text" v-model="search" placeholder="根据菜名搜索.."/>
     </div>
-    <ul class="list-unstyled scrollbar-info" id="wrapper">
+    <ul class="list-unstyled scrollbar-info" id="dishContents">
       <div v-for="dishInfo in filteredList" :key="dishInfo.id">
         <b-media id="dishInfo" tag="li">
           <b-img id="dishPic" slot="aside" :src="dishInfo.picPath" width="80" height="80" :alt="dishInfo.dishName" />
@@ -96,9 +96,6 @@ export default {
     ...mapState({
       categoryList: state => state.category.all
     })
-  },
-  mounted () {
-    this.$store.dispatch('category/getCategoryInfo')
   }
 }
 </script>
@@ -112,11 +109,15 @@ export default {
   margin: 0 auto 0 auto;
 }
 
-#wrapper {
+#dishContents {
   margin-top: 30px;
   height: 300px;
   width: 100%;
   overflow-y: scroll;
+}
+
+#dishContents::-webkit-scrollbar {
+  display: none;
 }
 
 #dishInfo {
@@ -161,17 +162,20 @@ export default {
   color: black;
 }
 
-.scrollbar-info::-webkit-scrollbar-track {
+/* .scrollbar-info::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   background-color: #F5F5F5;
-  border-radius: 10px; }
+  border-radius: 10px;
+}
 
 .scrollbar-info::-webkit-scrollbar {
   width: 12px;
-  background-color: #F5F5F5; }
+  background-color: #F5F5F5;
+}
 
 .scrollbar-info::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #33b5e5; }
+  background-color: #33b5e5;
+} */
 </style>
