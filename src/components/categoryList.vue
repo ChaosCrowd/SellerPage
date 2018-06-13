@@ -1,20 +1,37 @@
 <template>
   <div id="categoryList">
     <div id="searchCategory">
-      <input type="text" v-model="search" placeholder="根据菜名搜索.."/>
+      <input type="text" v-model="search" placeholder="搜索类别..."/>
     </div>
     <div id="categoryContents">
       <div v-for="categoryInfo in filteredList" :key="categoryInfo.categoryId">
-        <b-card :title="categoryInfo.categoryName"
-                v-on:click="showDishList"
-                :id="categoryInfo.categoryId">
-        </b-card>
+        <div v-on:click="showDishList"
+                :id="categoryInfo.categoryId" class="card">
+          <p class="categoryText">
+            {{ categoryInfo.categoryName }}
+          </p>
+        </div>
+      </div>
+      <div>
+        <div v-on:click="addCategory"
+             id="addCategoryButton" class="card">
+          <b-img-lazy src="http://chuantu.biz/t6/328/1528910513x-1404764331.jpg"
+                      width="45"
+                      height="45">
+          </b-img-lazy>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+// categoryInfo = {
+//   categoryID: 1,
+//   categoryName: 'asdfasd'
+// }
+
 export default {
   name: 'categoryList',
   data () {
@@ -36,6 +53,9 @@ export default {
     showDishList (event) {
       // alert(event.currentTarget.id)
       alert(JSON.stringify(this.$store.state.category.all))
+    },
+    addCategory (event) {
+      alert('add')
     }
   }
 }
@@ -48,6 +68,10 @@ export default {
 
 #searchCategory {
   max-width: 342px;
+}
+
+.categoryText {
+  margin: 0;
 }
 
 #categoryContents {
@@ -65,8 +89,11 @@ export default {
 
 .card {
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  font-size: 15pt;
+  padding: 10px 10px 10px 10px;
   max-width: 124px;
-  margin: 12px;
+  max-height: 124px;
+  margin: 10px;
   transition: .15s all ease-in-out;
   user-select: none;
 }
@@ -74,6 +101,10 @@ export default {
 .card:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+#addCategoryButton {
+
 }
 
 </style>
