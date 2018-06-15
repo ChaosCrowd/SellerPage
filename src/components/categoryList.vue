@@ -6,7 +6,7 @@
     <div id="categoryContents">
       <div v-for="categoryInfo in filteredList" :key="categoryInfo.categoryId">
         <div v-on:click="showDishList"
-                :id="categoryInfo.categoryId" class="card">
+                :id="categoryInfo.categoryId" class="categoryCard">
           <p class="categoryText">
             {{ categoryInfo.categoryName }}
           </p>
@@ -14,7 +14,7 @@
       </div>
       <div>
         <div v-on:click="addCategory"
-             id="addCategoryButton" class="card">
+             id="addCategoryButton" class="categoryCard">
           <b-img-lazy src="http://chuantu.biz/t6/328/1528910513x-1404764331.jpg"
                       width="45"
                       height="45">
@@ -22,11 +22,12 @@
         </div>
       </div>
     </div>
+    <dishList :categoryID="selectedID" v-show="show" @closeDishList="closeDishList"></dishList>
   </div>
 </template>
 
 <script>
-
+import dishList from '@/components/dishList'
 // categoryInfo = {
 //   categoryID: 1,
 //   categoryName: 'asdfasd'
@@ -34,9 +35,14 @@
 
 export default {
   name: 'categoryList',
+  components: {
+    dishList
+  },
   data () {
     return {
-      search: ''
+      search: '',
+      selectedID: -1,
+      show: false
     }
   },
   computed: {
@@ -52,7 +58,12 @@ export default {
   methods: {
     showDishList (event) {
       // alert(event.currentTarget.id)
-      alert(JSON.stringify(this.$store.state.category.all))
+      this.selectedID = event.currentTarget.categoryId
+      this.show = true
+    },
+    closeDishList (event) {
+      this.selectedID = -1
+      this.show = false
     },
     addCategory (event) {
       alert('add')
@@ -87,7 +98,7 @@ export default {
   display: none;
 }
 
-.card {
+.categoryCard {
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
   font-size: 15pt;
   padding: 10px 10px 10px 10px;
@@ -98,13 +109,17 @@ export default {
   user-select: none;
 }
 
-.card:hover {
+.categoryCard:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
 #addCategoryButton {
 
+}
+
+#dishList {
+  position: absolute;
 }
 
 </style>
