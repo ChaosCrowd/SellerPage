@@ -3,40 +3,43 @@
     <div id="searchCategory">
       <input type="text" v-model="search" placeholder="搜索类别..."/>
     </div>
-    <div id="categoryContents">
-      <div>
-        <div v-on:click="showAddCategoryBox"
-             id="addCategoryButton"
-             class="categoryCard">
-          <b-img-lazy src="http://chuantu.biz/t6/328/1528910513x-1404764331.jpg"
-                      width="45"
-                      height="45">
-          </b-img-lazy>
-        </div>
-        <transition name="bounce">
-          <addCategoryBox v-show="addCategoryBoxFlag"
-                          @closeAddCategoryBox="closeAddCategoryBox">
-          </addCategoryBox>
-        </transition>
-      </div>
-      <div v-for="categoryInfo in filteredList"
-            :key="categoryInfo.categoryID">
-        <transition name="fade">
-          <div v-on:click="showDishList"
-               :id="categoryInfo.categoryID"
-               v-show="categoryFlag"
-               class="categoryCard">
-            <p class="categoryText">
-              {{ categoryInfo.categoryName }}
-            </p>
+    <transition name="slide-left" mode="out-in">
+      <div id="categoryContents" v-if="contentsFlag">
+        <div>
+          <div v-on:click="showAddCategoryBox"
+              id="addCategoryButton"
+              class="categoryCard">
+            <b-img-lazy src="http://chuantu.biz/t6/328/1528910513x-1404764331.jpg"
+                        width="45"
+                        height="45">
+            </b-img-lazy>
           </div>
-        </transition>
+          <transition name="bounce">
+            <addCategoryBox v-show="addCategoryBoxFlag"
+                            @closeAddCategoryBox="closeAddCategoryBox">
+            </addCategoryBox>
+          </transition>
+        </div>
+        <div v-for="categoryInfo in filteredList"
+              :key="categoryInfo.categoryID">
+          <transition name="fade">
+            <div v-on:click="showDishList"
+                :id="categoryInfo.categoryID"
+                v-show="categoryFlag"
+                class="categoryCard">
+              <p class="categoryText">
+                {{ categoryInfo.categoryName }}
+              </p>
+            </div>
+          </transition>
+        </div>
       </div>
-    </div>
-    <dishList :categoryID="selectedID"
-              v-show="dishListFlag"
-              @closeDishList="closeDishList">
-    </dishList>
+      <dishList :categoryID="selectedID"
+                :search="search"
+                v-else
+                @closeDishList="closeDishList">
+      </dishList>
+    </transition>
   </div>
 </template>
 
@@ -54,9 +57,10 @@ export default {
     return {
       search: '',
       selectedID: -1,
-      dishListFlag: false,
+      contentsFlag: true,
+      categoryFlag: true,
       addCategoryBoxFlag: false,
-      categoryFlag: true
+      dishListFlag: false
     }
   },
   computed: {
@@ -74,10 +78,12 @@ export default {
       // alert(event.currentTarget.id)
       this.selectedID = event.currentTarget.categoryId
       this.dishListFlag = true
+      this.contentsFlag = false
     },
     closeDishList (event) {
       this.selectedID = -1
       this.dishListFlag = false
+      this.contentsFlag = true
     },
     showAddCategoryBox (event) {
       this.addCategoryBoxFlag = true
@@ -115,6 +121,24 @@ export default {
   display: none;
 }
 
+/*category内容框的动画*/
+.slide-left-enter {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-left-enter-active {
+  transition: all .3s ease;
+}
+.slide-left-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-left-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
 /*categoryCard的样式*/
 .categoryCard {
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
@@ -136,13 +160,6 @@ export default {
   margin: 0;
 }
 
-/*增加category按钮的样式*/
-#addCategoryButton {
-  padding: 2px;
-  width: 50px;
-  height: 50px;
-}
-
 /*categoryCard的动画*/
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
@@ -151,9 +168,30 @@ export default {
   opacity: 0;
 }
 
+/*增加category按钮的样式*/
+#addCategoryButton {
+  padding: 2px;
+  width: 50px;
+  height: 50px;
+}
+
 /* !!!!!!!!子组件 */
+/*dishList样式*/
 #dishList {
   position: absolute;
+}
+
+/*dishList动画*/
+.slide-right-enter-active {
+  transition: all .3s ease;
+}
+.slide-right-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-right-enter, .slide-right-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 
 /*addCategoryBox的style*/

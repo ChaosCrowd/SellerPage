@@ -1,8 +1,5 @@
 <template>
   <div id="dishList">
-    <div id="search">
-      <input type="text" v-model="search" placeholder="根据菜名搜索.."/>
-    </div>
     <b-button v-on:click="close">关闭</b-button>
     <ul class="list-unstyled scrollbar-info" id="dishContents">
       <div v-for="dishInfo in filteredList" :key="dishInfo.id">
@@ -39,10 +36,9 @@ class DishInfo {
 
 export default {
   name: 'dishList',
-  props: ['categoryID'],
+  props: ['categoryID', 'search'],
   data () {
     return {
-      search: '',
       dishList: [
         new DishInfo(
           0,
