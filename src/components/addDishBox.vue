@@ -40,7 +40,7 @@
         </b-form-file>
       </b-form>
       <b-button variant="primary" @click="onSubmit">确认添加</b-button>
-      <b-button variant="primary" @click="showInfo">显示</b-button>
+      <!-- <b-button variant="primary" @click="showInfo">显示</b-button> -->
   </div>
 </template>
 
