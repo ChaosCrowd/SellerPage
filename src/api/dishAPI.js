@@ -14,7 +14,7 @@ export default {
   modifyDish (data, onSuccess, onError) {
     Vue.http.patch('dish', data).then(onSuccess, onError)
   },
-  getDishInfo (onSuccess, onError) {
+  getDishInfo (data, onSuccess, onError) {
     Vue.http.get('dish', { body: data }).then(onSuccess, onError)
   }
 }

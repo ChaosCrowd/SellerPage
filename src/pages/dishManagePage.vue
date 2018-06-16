@@ -30,7 +30,7 @@ export default {
 }
 
 #addDishBox {
-  margin: 10% auto 0 auto;
+  margin: 10% auto 5% auto;
   width: 250px;
 }
 

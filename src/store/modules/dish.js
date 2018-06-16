@@ -3,21 +3,21 @@ import dishAPI from '../../api/dishAPI'
 // dishMap = Map(dishID, dishInfo)
 // relationMap = Map(categoryID, Set([dihsID1,dishID2...]))
 const state = {
-  dishMap = new Map(),
-  relationMap = new Map()
+  dishMap: new Map(),
+  relationMap: new Map()
 }
 
 const getters = {}
 
 const mutations = {
-  addDish(state, data) {
+  addDish (state, data) {
     // 把dishInfo加入dishMap
     // 由于是新建dish，所以id不可能已经存在
     state.dishMap.set(data.dishInfo.dishID, data.dishInfo)
     // 把所属类别加入relationMap
     // 如果map键不存在那就新建
     data.categoryID.forEach(element => {
-      if (state.relationMap.get(element) == undefined) {
+      if (state.relationMap.get(element) === undefined) {
         state.relationMap.set(element, new Set([data.dishInfo.dishID]))
       } else {
         state.relationMap.get(element).add(data.dishInfo.dishID)
@@ -49,7 +49,7 @@ const mutations = {
     // 再重新添加
     // 注意这里categoryID有可能不存在于relationMap
     data.categoryID.forEach(element => {
-      if (state.relationMap.get(element) == undefined) {
+      if (state.relationMap.get(element) === undefined) {
         state.relationMap.set(element, new Set([data.dishInfo.dishID]))
       } else {
         state.relationMap.get(element).add(data.dishInfo.dishID)
@@ -59,7 +59,7 @@ const mutations = {
   getDishInfo (state, data) {
     // 当前的实现仅针对第一种request
     // 如果categoryID不存在于relationMap中
-    if (state.relationMap.get(data.categoryID) == undefined) {
+    if (state.relationMap.get(data.categoryID) === undefined) {
       state.relationMap.set(data.categoryID, new Set())
     }
     // 把dishInfo中的元素加到两个Map里
