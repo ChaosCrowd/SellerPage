@@ -2,20 +2,20 @@
   <div id="dishManagePage">
     <addDishBox></addDishBox>
     <!-- <dishList></dishList> -->
-    <categoryList></categoryList>
+    <listContainer></listContainer>
   </div>
 </template>
 
 <script>
 import addDishBox from '@/components/addDishBox'
 // import dishList from '@/components/dishList'
-import categoryList from '@/components/categoryList'
+import listContainer from '@/components/listContainer'
 
 export default {
   name: 'dishManagePage',
   components: {
     addDishBox,
-    categoryList
+    listContainer
   }
 }
 </script>
@@ -34,7 +34,7 @@ export default {
   width: 250px;
 }
 
-#categoryList {
+#listContainer {
   margin: 10% auto 0 auto;
   width: 400px;
 }

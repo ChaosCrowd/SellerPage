@@ -2,7 +2,7 @@
   <div id="addCategoryBox">
     <b-form-group>
       <b-form-input id="newCategoryName"
-                    v-model="this.categoryName"
+                    v-model="categoryName"
                     required
                     placeholder="类名">
       </b-form-input>

@@ -68,14 +68,19 @@ const actions = {
   },
 
   getCategoryInfo ({ commit }) {
-    categoryAPI.getCategoryInfo(response => {
-      if (response.status === 200) {
-        commit('getCategoryInfo', response.body.data)
-      } else if (response.status === 403) {
-        alert('getCategoryInfo fails!')
-      }
-    }, response => {
-      alert('getCategoryInfo fails!')
+    return new Promise((resolve, reject) => {
+      categoryAPI.getCategoryInfo(response => {
+        if (response.status === 200) {
+          commit('getCategoryInfo', response.body.data)
+          resolve()
+        } else if (response.status === 403) {
+          // alert('getCategoryInfo fails!')
+          reject(new Error('getCategoryInfo fails!'))
+        }
+      }, response => {
+        // alert('getCategoryInfo fails!')
+        reject(new Error('getCategoryInfo fails!'))
+      })
     })
   }
 }

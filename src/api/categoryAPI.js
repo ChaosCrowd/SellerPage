@@ -3,18 +3,19 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
 Vue.http.options.root = 'https://private-924fb8-order51.apiary-mock.com'
+Vue.http.headers.common['content-type'] = 'application/json;charset=UTF-8'
 
 export default {
-  addCategory (data, onSuccess, onError) {
-    Vue.http.post('category', data).then(onSuccess, onError)
+  addCategory (data, resolve, reject) {
+    Vue.http.post('category', data).then(resolve, reject)
   },
-  delCategory (data, onSuccess, onError) {
-    Vue.http.delete('category', { body: data }).then(onSuccess, onError)
+  delCategory (data, resolve, reject) {
+    Vue.http.delete('category', { body: data }).then(resolve, reject)
   },
-  renameCategory (data, onSuccess, onError) {
-    Vue.http.patch('category', data).then(onSuccess, onError)
+  renameCategory (data, resolve, reject) {
+    Vue.http.patch('category', data).then(resolve, reject)
   },
-  getCategoryInfo (onSuccess, onError) {
-    Vue.http.get('category').then(onSuccess, onError)
+  getCategoryInfo (resolve, reject) {
+    Vue.http.get('category').then(resolve, reject)
   }
 }

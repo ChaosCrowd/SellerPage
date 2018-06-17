@@ -1,18 +1,28 @@
 <template>
   <div id="dishList">
-    <b-button v-on:click="close">关闭</b-button>
+    <div id="listHead">
+      <p>{{ this.selectedName }}</p>
+      <button id="renameCategoryButton" @click="close">修改类名</button>
+      <button id="delCategoryButton" @click="close">删除类别</button>
+      <button id="return" @click="close">返回</button>
+    </div>
     <ul class="list-unstyled scrollbar-info" id="dishContents">
-      <div v-for="dishInfo in filteredList" :key="dishInfo.id">
+      <div v-for="dishInfo in filteredList" :key="dishInfo.dishID">
         <b-media id="dishInfo" tag="li">
-          <b-img id="dishPic" slot="aside" :src="dishInfo.picPath" width="80" height="80" :alt="dishInfo.dishName" />
+          <b-img id="dishPic" slot="aside" :src="dishInfo.dishImg" width="80" height="80" :alt="dishInfo.dishName" />
           <div id="dishName">
             {{ dishInfo.dishName }}
           </div>
           <div id="dishDcpt">
-            {{ dishInfo.dishDcpt }}
+            {{ dishInfo.dishDescription }}
           </div>
           <div id="dishPrice">
             {{ dishInfo.dishPrice }}￥
+          </div>
+          <div id="buttonContainer">
+            <button id="modifyDish">修改信息</button>
+            <button id="delDish1">从该类别中删除</button>
+            <button id="delDish2">完全删除</button>
           </div>
         </b-media>
         <hr id="divider">
@@ -24,68 +34,24 @@
 <script>
 import { mapState } from 'vuex'
 
-class DishInfo {
-  constructor (dishId, dishName, dishPrice, picPath, dishDcpt) {
-    this.dishId = dishId
-    this.dishName = dishName
-    this.dishPrice = dishPrice
-    this.picPath = picPath
-    this.dishDcpt = dishDcpt
-  }
-}
-
 export default {
   name: 'dishList',
-  props: ['categoryID', 'search'],
+  props: ['selectedName', 'selectedID', 'search'],
   data () {
     return {
-      dishList: [
-        new DishInfo(
-          0,
-          '番茄炒蛋',
-          '998',
-          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
-          '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
-        ),
-        new DishInfo(
-          1,
-          '西红柿炒蛋',
-          '998',
-          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
-          '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
-        ),
-        new DishInfo(
-          1,
-          '西红柿炒蛋',
-          '998',
-          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
-          '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
-        ),
-        new DishInfo(
-          1,
-          '西红柿炒蛋',
-          '998',
-          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
-          '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
-        ),
-        new DishInfo(
-          1,
-          '西红柿炒蛋',
-          '998',
-          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
-          '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
-        ),
-        new DishInfo(
-          1,
-          '西红柿炒蛋',
-          '998',
-          'http://chuantu.biz/t6/327/1528663106x-1404764331.jpg',
-          '西红柿炒鸡蛋，又名番茄炒蛋，是许多百姓家庭中一道普通的大众菜肴。烹饪方法简单易学，营养搭配合理。'
-        )
-      ]
     }
   },
   computed: {
+    dishList () {
+      var temp = []
+      // eslint-disable-next-linea
+      if (this.$store.state.dish.relationMap.has(parseInt(this.selectedID))) {
+        this.$store.state.dish.relationMap.get(parseInt(this.selectedID)).forEach(e => {
+          temp.push(this.$store.state.dish.dishMap.get(e))
+        })
+      }
+      return temp
+    },
     filteredList () {
       return this.dishList.filter(dishInfo => {
         return dishInfo.dishName.toLowerCase().includes(this.search.toLowerCase())
@@ -104,16 +70,41 @@ export default {
 </script>
 
 <style>
-#dishList {
-  width: 50%;
+#listHead {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  font-size: 15pt;
+  font: bolder;
+  text-align: left;
 }
 
-#search {
-  margin: 0 auto 0 auto;
+#listHead>p {
+  margin: 0;
+  width: 100%;
 }
+
+#listHead>button {
+  font-size: 10pt !important;
+  margin: 5px 10px 5px 0;
+}
+
+/* #renameCategoryButton {
+  left: 50;
+}
+
+#delCategoryButton {
+  left: 100px;
+}
+
+#return {
+  left: 200px;
+}*/
 
 #dishContents {
-  margin-top: 30px;
+  margin-top: 0;
   height: 300px;
   width: 100%;
   overflow-y: scroll;
@@ -153,10 +144,36 @@ export default {
 #dishDcpt {
   position: absolute;
   width: 50%;
+  height: 50px;
   left: 50%;
-  padding-right: 5px;
+  padding-right: 25px;
   font-size: 10pt;
   text-align: justify;
+  overflow: hidden !important;
+}
+
+#buttonContainer {
+  position: absolute;
+  top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 7pt;
+}
+
+/* .dishManageButton {
+  position: absolute;
+  font-size: 5pt;
+} */
+
+#modifyDish {
+}
+
+#delDish1 {
+  margin-left: 10px;
+}
+
+#delDish2 {
+  margin-left: 10px;
 }
 
 #divider {

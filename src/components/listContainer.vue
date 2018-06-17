@@ -1,0 +1,102 @@
+<template>
+  <div id="listContainer">
+    <div id="searchCategory">
+      <input type="text" v-model="search" placeholder="搜索名称..."/>
+    </div>
+    <transition name="slide-left" mode="out-in">
+      <categoryList v-if="flag"
+                    :search="search"
+                    @selectCategory="selectCategory">
+      </categoryList>
+      <dishList v-else
+                :search="search"
+                :selectedName="selectedName"
+                :selectedID="selectedID"
+                @closeDishList="closeDishList">
+      </dishList>
+    </transition>
+  </div>
+</template>
+
+<script>
+import dishList from '@/components/dishList'
+import categoryList from '@/components/categoryList'
+
+export default {
+  name: 'listContainer',
+  components: {
+    categoryList,
+    dishList
+  },
+  data () {
+    return {
+      search: '',
+      selectedName: '',
+      selectedID: '', // 从categoryList传过来的值只能是string,在dishList中改成int
+      flag: true
+    }
+  },
+  methods: {
+    selectCategory (selectedName, selectedID) {
+      this.selectedName = selectedName
+      this.selectedID = selectedID
+      this.flag = false
+    },
+    closeDishList () {
+      this.flag = true
+      this.selectedID = ''
+    }
+  }
+}
+</script>
+
+<style>
+#listContainer {
+  padding-left: 25px;
+}
+
+#searchCategory {
+  max-width: 342px;
+}
+
+#categoryList, #dishList {
+  margin-top: 10px;
+}
+
+/*两个List的动画*/
+.slide-left-enter {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-left-enter-active {
+  transition: all .3s ease;
+}
+.slide-left-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-left-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
+/*dishList样式*/
+/* #dishList {
+  position: absolute;
+} */
+
+/*dishList动画*/
+.slide-right-enter-active {
+  transition: all .3s ease;
+}
+.slide-right-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-right-enter, .slide-right-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+</style>
