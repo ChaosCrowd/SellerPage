@@ -10,7 +10,6 @@
       </categoryList>
       <dishList v-else
                 :search="search"
-                :selectedName="selectedName"
                 :selectedID="selectedID"
                 @closeDishList="closeDishList">
       </dishList>
@@ -31,14 +30,12 @@ export default {
   data () {
     return {
       search: '',
-      selectedName: '',
       selectedID: '', // 从categoryList传过来的值只能是string,在dishList中改成int
       flag: true
     }
   },
   methods: {
-    selectCategory (selectedName, selectedID) {
-      this.selectedName = selectedName
+    selectCategory (selectedID) {
       this.selectedID = selectedID
       this.flag = false
     },

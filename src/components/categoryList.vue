@@ -2,8 +2,8 @@
   <div id="categoryList">
     <div id="addCategoryButtonBox">
       <div v-on:click="showAddCategoryBox"
-          id="addCategoryButton"
-          class="categoryCard">
+           id="addCategoryButton"
+           class="categoryCard">
         <b-img-lazy src="http://chuantu.biz/t6/328/1528910513x-1404764331.jpg"
                     width="45"
                     height="45">
@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     categoryList () {
-      return this.$store.state.category.all
+      return this.$store.state.dish.all
     },
     filteredList () {
       return this.categoryList.filter(categoryInfo => {
@@ -60,10 +60,10 @@ export default {
   methods: {
     showDishList (event) {
       // 这里的id是<div>的id
-      var name = this.categoryList.find(e => {
-        return e.categoryID === parseInt(event.currentTarget.id)
-      }).categoryName
-      this.$emit('selectCategory', name, event.currentTarget.id)
+      // var name = this.categoryList.find(e => {
+      //   return e.categoryID === parseInt(event.currentTarget.id)
+      // }).categoryName
+      this.$emit('selectCategory', parseInt(event.currentTarget.id))
     },
     showAddCategoryBox (event) {
       this.addCategoryBoxFlag = true

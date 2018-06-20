@@ -1,15 +1,36 @@
 import dishAPI from '../../api/dishAPI'
-
+import categoryAPI from '../../api/categoryAPI'
 // dishMap = Map(dishID, dishInfo)
 // relationMap = Map(categoryID, Set([dihsID1,dishID2...]))
 const state = {
+  all: [],
   dishMap: new Map(),
-  relationMap: new Map()
+  relationMap: new Map(),
+  dishMapChange: 0,
+  relationMapChange: 0
 }
 
 const getters = {}
 
 const mutations = {
+  getCategoryInfo (state, categories) {
+    state.all = categories
+  },
+
+  addCategory (state, category) {
+    state.all.push(category)
+  },
+
+  renameCategory (state, category) {
+    state.all.find(ele => (ele.categoryID === category.categoryID)).categoryName = category.categoryName
+  },
+
+  delCategory (state, category) {
+    state.all = state.all.filter(ele => {
+      return ele.categoryID !== category.categoryID
+    })
+    state.relationMap.delete(category.categoryID)
+  },
   addDish (state, data) {
     // 把dishInfo加入dishMap
     // 由于是新建dish，所以id不可能已经存在
@@ -55,6 +76,7 @@ const mutations = {
         state.relationMap.get(element).add(data.dishInfo.dishID)
       }
     })
+    state.relationMapChange += 1
   },
   getDishInfo (state, data) {
     // 当前的实现仅针对第一种request
@@ -72,6 +94,65 @@ const mutations = {
 }
 
 const actions = {
+  // data = { catagoryName: 'xxx' }
+  addCategory ({ commit }, data) {
+    categoryAPI.addCategory(data, response => {
+      if (response.status === 200) {
+        commit('addCategory', response.body.data)
+      } else if (response.status === 403) {
+        alert('addCategory fails')
+      }
+    }, response => {
+      alert('addCategory fails')
+    })
+  },
+
+  // data = { categoryID:1, catagoryName: 'xxx' }
+  delCategory ({ commit }, data) {
+    categoryAPI.delCategory(data, response => {
+      if (response.status === 200) {
+        commit('delCategory', response.body.data)
+      } else if (response.status === 403) {
+        alert('delCategory fails!')
+      }
+    }, response => {
+      alert('delCategory fails!')
+    })
+  },
+
+  // data = { categoryID:1, catagoryName: 'xxx' }
+  renameCategory ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      categoryAPI.renameCategory(data, response => {
+        if (response.status === 200) {
+          commit('renameCategory', response.body.data)
+          resolve()
+        } else if (response.status === 403) {
+          reject(new Error('renameCategory fails!'))
+        }
+      }, response => {
+        reject(new Error('renameCategory fails!'))
+      })
+    })
+  },
+
+  getCategoryInfo ({ commit }) {
+    return new Promise((resolve, reject) => {
+      categoryAPI.getCategoryInfo(response => {
+        if (response.status === 200) {
+          commit('getCategoryInfo', response.body.data)
+          resolve()
+        } else if (response.status === 403) {
+          // alert('getCategoryInfo fails!')
+          reject(new Error('getCategoryInfo fails!'))
+        }
+      }, response => {
+        // alert('getCategoryInfo fails!')
+        reject(new Error('getCategoryInfo fails!'))
+      })
+    })
+  },
+
   addDish ({ commit }, data) {
     dishAPI.addDish(data, response => {
       if (response.status === 200) {
@@ -83,6 +164,7 @@ const actions = {
       alert('addDish fail!')
     })
   },
+
   delDish ({ commit }, data) {
     dishAPI.delDish(data, response => {
       if (response.status === 200) {
@@ -94,16 +176,11 @@ const actions = {
       alert('delDish fail!')
     })
   },
+
   modifyDish ({ commit }, data) {
     dishAPI.modifyDish(data, response => {
       if (response.status === 200) {
-        if (response.body.data.categoryID.length === 0) {
-          // 如果categoryID长度为0那么就需要完全删除菜品
-          commit('delDish', response.body.data)
-        } else {
-          // 如果categoryID长度不为0那么就修改信息
-          commit('modifyDish', response.body.data)
-        }
+        commit('modifyDish', response.body.data)
       } else if (response.status === 403) {
         alert('modifyDish fail!')
       }
@@ -111,6 +188,7 @@ const actions = {
       alert('modifyDish fail!')
     })
   },
+
   getDishInfo ({ commit }, data) {
     dishAPI.getDishInfo(data, response => {
       if (response.status === 200) {

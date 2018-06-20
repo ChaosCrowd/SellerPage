@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     addCategory () {
-      this.$store.dispatch('category/addCategory', this.categoryName)
+      this.$store.dispatch('dish/addCategory', this.categoryName)
       this.$emit('closeAddCategoryBox')
     },
     cancel () {

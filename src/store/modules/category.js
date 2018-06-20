@@ -56,17 +56,19 @@ const actions = {
 
   // data = { categoryID:1, catagoryName: 'xxx' }
   renameCategory ({ commit }, data) {
-    categoryAPI.getCategoryInfo(response => {
-      if (response.status === 200) {
-        commit('renameCategory', response.body.data)
-      } else if (response.status === 403) {
-        alert('renameCategory fails!')
-      }
-    }, response => {
-      alert('renameCategory fails!')
+    return new Promise((resolve, reject) => {
+      categoryAPI.renameCategory(data, response => {
+        if (response.status === 200) {
+          commit('renameCategory', response.body.data)
+          resolve()
+        } else if (response.status === 403) {
+          reject(new Error('renameCategory fails!'))
+        }
+      }, response => {
+        reject(new Error('renameCategory fails!'))
+      })
     })
   },
-
   getCategoryInfo ({ commit }) {
     return new Promise((resolve, reject) => {
       categoryAPI.getCategoryInfo(response => {

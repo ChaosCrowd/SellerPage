@@ -62,7 +62,7 @@ export default {
     options () {
       var temp = []
       // eslint-disable-next-line
-      this.$store.state.category.all.forEach(e => {
+      this.$store.state.dish.all.forEach(e => {
         temp.push({ text: e.categoryName, value: e.categoryID })
       })
       return temp

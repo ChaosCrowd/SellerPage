@@ -14,9 +14,9 @@ export default {
     navBar
   },
   mounted () {
-    this.$store.dispatch('category/getCategoryInfo').then(() => {
-      this.$store.state.category.all.forEach(e => {
-        this.$store.dispatch('dish/getDishInfo', { categoryID: e.categoryID, dishID: 0 })
+    this.$store.dispatch('dish/getCategoryInfo').then(() => {
+      this.$store.state.dish.all.forEach(e => {
+        this.$store.dispatch('dish/getDishInfo', { categoryID: e.categoryID })
       })
     }, err => {
       console.error(err)
