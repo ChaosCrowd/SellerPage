@@ -3,7 +3,6 @@
     <b-form-group>
       <b-form-input id="newCategoryName"
                     v-model="categoryName"
-                    required
                     placeholder="类名">
       </b-form-input>
       <b-button id="addCategoryConfirm" @click="addCategory" variant="primary">确认</b-button>
@@ -22,7 +21,9 @@ export default {
   },
   methods: {
     addCategory () {
-      this.$store.dispatch('dish/addCategory', this.categoryName)
+      if (this.categoryName !== '') {
+        this.$store.dispatch('dish/addCategory', this.categoryName)
+      }
       this.$emit('closeAddCategoryBox')
     },
     cancel () {

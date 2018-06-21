@@ -3,7 +3,6 @@
     <div id="listHead">
       <b-form-input v-show="isActive"
                     autofocus
-                    :placeholder="selectedName"
                     v-model="newName"
                     id="renameInput"></b-form-input>
       <button id="renameConfirm"
@@ -22,47 +21,53 @@
       <button id="return"
               @click="close">返回</button>
     </div>
-    <ul class="list-unstyled scrollbar-info" id="dishContents">
-      <div v-for="dishInfo in filteredList" :key="dishInfo.dishID">
-        <dishCell :dishInfo="dishInfo"
-                  :categoryID="selectedID"
-                  :isDefaultCategory="isDefaultCategory"></dishCell>
-        <hr id="divider">
-      </div>
-    </ul>
+    <transition name="slide-left" mode="out-in">
+      <ul class="list-unstyled scrollbar-info" id="dishContents" v-if="!modifyDishFlag">
+        <div v-for="dishInfo in filteredList" :key="dishInfo.dishID">
+          <dishCell :dishInfo="dishInfo"
+                    :categoryID="selectedCategoryID"
+                    :isDefaultCategory="isDefaultCategory"
+                    @modifyDish="showModifyDishBox"></dishCell>
+          <hr id="divider">
+        </div>
+      </ul>
+      <modifyDishBox v-else
+                     :dishID="selectedDishID"
+                     @closeSelf="closeModifyDishBox"></modifyDishBox>
+    </transition>
   </div>
 </template>
 
 <script>
 // import { mapState } from 'vuex'
 import dishCell from '@/components/dishCell'
+import modifyDishBox from '@/components/modifyDishBox'
 
 export default {
   name: 'dishList',
-  props: ['selectedID', 'search', 'isDefaultCategory'],
+  props: ['selectedCategoryID', 'search', 'isDefaultCategory'],
   components: {
-    dishCell
+    dishCell,
+    modifyDishBox
   },
   data () {
     return {
       isActive: false,
-      newName: ''
+      newName: '',
+      selectedName: '',
+      selectedDishID: 1,
+      modifyDishFlag: false
     }
   },
   computed: {
-    selectedName () {
-      return this.$store.state.dish.all.find(e => {
-        return e.categoryID === this.selectedID
-      }).categoryName
-    },
     dishList () {
       // eslint-disable-next-line
       this.$store.state.dish.relationMapChange
       // eslint-disable-next-line
       this.$store.state.dish.dishMapChange
       var temp = []
-      if (this.$store.state.dish.relationMap.has(this.selectedID)) {
-        this.$store.state.dish.relationMap.get(this.selectedID).forEach(e => {
+      if (this.$store.state.dish.relationMap.has(this.selectedCategoryID)) {
+        this.$store.state.dish.relationMap.get(this.selectedCategoryID).forEach(e => {
           temp.push(this.$store.state.dish.dishMap.get(e))
         })
       }
@@ -87,7 +92,7 @@ export default {
     renameConfirm (event) {
       if (this.newName === '') return
       this.$store.dispatch('dish/renameCategory', {
-        categoryID: this.selectedID,
+        categoryID: this.selectedCategoryID,
         categoryName: this.newName
       }).then(() => {
         this.isActive = false
@@ -97,11 +102,24 @@ export default {
     },
     delCategory (event) {
       this.close()
-      this.$store.dispatch('dish/delCategory', { categoryID: this.selectedID })
+      this.$store.dispatch('dish/delCategory', { categoryID: this.selectedCategoryID })
     },
     delDishFromCategory (event) {
 
+    },
+    showModifyDishBox (dishID) {
+      this.selectedDishID = dishID
+      this.modifyDishFlag = true
+    },
+    closeModifyDishBox () {
+      this.modifyDishFlag = false
     }
+  },
+  mounted () {
+    this.selectedName = this.$store.state.dish.all.find(e => {
+      return e.categoryID === this.selectedCategoryID
+    }).categoryName
+    this.newName = this.selectedName
   }
 }
 </script>

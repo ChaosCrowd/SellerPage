@@ -11,7 +11,8 @@
       ￥{{ dishInfo.dishPrice }}
     </div>
     <div id="buttonContainer">
-      <button id="modifyDish">修改信息</button>
+      <button id="modifyDish"
+              @click="modifyDish">修改信息</button>
       <button id="delDish1"
               @click="delDishFromCategory"
               v-show="!isDefaultCategory">从该类别中删除</button>
@@ -30,6 +31,9 @@ export default {
     }
   },
   methods: {
+    modifyDish () {
+      this.$emit('modifyDish', this.dishInfo.dishID)
+    },
     delDishFromCategory () {
       var temp = []
       this.$store.state.dish.relationMap.forEach((e, key) => {

@@ -2,22 +2,27 @@
   <div id="addDishBox">
       <b-form>
         <h2>添加菜品</h2>
-        <b-form-input id="input1"
-                      name="dishName"
+        <b-form-input id="addDishNameInput"
                       type="text"
                       v-model="form.dishName"
                       placeholder="菜品名称">
         </b-form-input>
-        <b-form-input id="input2"
+        <b-form-input id="addDishPriceInput"
                       name="dishPrice"
                       type="number"
+                      step="0.01"
                       v-model="form.dishPrice"
                       placeholder="菜品价格">
         </b-form-input>
+        <b-form-input id="addDishVolumeInput"
+                      type="number"
+                      v-model="form.dishVolume"
+                      placeholder="菜品数量">
+        </b-form-input>
         <p id="selectCategory">选择类别</p>
         <b-form-checkbox-group id="checkBox1"
-                              v-model="form.categoryID"
-                              :options="options">
+                               v-model="form.categoryID"
+                               :options="options">
         </b-form-checkbox-group>
         <!-- <b-form-input id="input3"
                       name="category"
@@ -32,12 +37,9 @@
                          :rows="4"
                          :max-rows="4">
         </b-form-textarea>
-        <b-form-file accept="image/*"
-                     v-model="form.dishImg"
-                     :state="Boolean(form.dishImg)"
-                     text="选择图片"
-                     plain>
-        </b-form-file>
+        <input type="file"
+               accept="image/*"
+               @change="addDishImg" />
       </b-form>
       <b-button variant="primary" @click="onSubmit">确认添加</b-button>
       <!-- <b-button variant="primary" @click="showInfo">显示</b-button> -->
@@ -52,6 +54,7 @@ export default {
       form: {
         dishName: '',
         dishPrice: null,
+        dishVolume: null,
         dishImg: null,
         dishDescription: '',
         categoryID: []
@@ -71,11 +74,11 @@ export default {
     }
   },
   methods: {
-    showInfo () {
-      alert(JSON.stringify(this.$store.state.dish.dishMap))
-    },
     onSubmit () {
       this.$store.dispatch('dish/addDish', this.form)
+    },
+    addDishImg (event) {
+      this.form.dishImg = event.target.files[0]
     }
   }
 }

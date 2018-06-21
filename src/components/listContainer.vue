@@ -10,7 +10,7 @@
       </categoryList>
       <dishList v-else
                 :search="search"
-                :selectedID="selectedID"
+                :selectedCategoryID="selectedCategoryID"
                 :isDefaultCategory="isDefaultCategory"
                 @closeDishList="closeDishList">
       </dishList>
@@ -31,21 +31,21 @@ export default {
   data () {
     return {
       search: '',
-      selectedID: '', // 从categoryList传过来的值只能是string,在dishList中改成int
+      selectedCategoryID: '', // 从categoryList传过来的值只能是string,在dishList中改成int
       flag: true,
       isDefaultCategory: false
     }
   },
   methods: {
-    selectCategory (selectedID, isDefaultCategory) {
-      this.selectedID = selectedID
+    selectCategory (selectedCategoryID, isDefaultCategory) {
+      this.selectedCategoryID = selectedCategoryID
       this.isDefaultCategory = isDefaultCategory
       // alert(isDefaultCategory)
       this.flag = false
     },
     closeDishList () {
       this.flag = true
-      this.selectedID = ''
+      this.selectedCategoryID = ''
     }
   }
 }
@@ -62,6 +62,7 @@ export default {
 
 #categoryList, #dishList {
   margin-top: 10px;
+  margin-bottom: 70px;
 }
 
 /*两个List的动画*/
