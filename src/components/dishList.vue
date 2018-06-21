@@ -13,13 +13,20 @@
               v-show="isActive"
               @click="closeInput">取消</button>
       <p>{{ this.selectedName }}</p>
-      <button id="renameCategoryButton" @click="showInput">修改类名</button>
-      <button id="delCategoryButton" @click="delCategory">删除类别</button>
-      <button id="return" @click="close">返回</button>
+      <button id="renameCategoryButton"
+              @click="showInput"
+              v-show="!isDefaultCategory">修改类名</button>
+      <button id="delCategoryButton"
+              @click="delCategory"
+              v-show="!isDefaultCategory">删除类别</button>
+      <button id="return"
+              @click="close">返回</button>
     </div>
     <ul class="list-unstyled scrollbar-info" id="dishContents">
       <div v-for="dishInfo in filteredList" :key="dishInfo.dishID">
-        <dishCell :dishInfo="dishInfo" :categoryID="selectedID"></dishCell>
+        <dishCell :dishInfo="dishInfo"
+                  :categoryID="selectedID"
+                  :isDefaultCategory="isDefaultCategory"></dishCell>
         <hr id="divider">
       </div>
     </ul>
@@ -32,7 +39,7 @@ import dishCell from '@/components/dishCell'
 
 export default {
   name: 'dishList',
-  props: ['selectedID', 'search'],
+  props: ['selectedID', 'search', 'isDefaultCategory'],
   components: {
     dishCell
   },
@@ -51,6 +58,8 @@ export default {
     dishList () {
       // eslint-disable-next-line
       this.$store.state.dish.relationMapChange
+      // eslint-disable-next-line
+      this.$store.state.dish.dishMapChange
       var temp = []
       if (this.$store.state.dish.relationMap.has(this.selectedID)) {
         this.$store.state.dish.relationMap.get(this.selectedID).forEach(e => {
@@ -76,9 +85,7 @@ export default {
       this.isActive = false
     },
     renameConfirm (event) {
-      if (this.newName === '') {
-        return
-      }
+      if (this.newName === '') return
       this.$store.dispatch('dish/renameCategory', {
         categoryID: this.selectedID,
         categoryName: this.newName

@@ -30,12 +30,12 @@ export default {
 }
 
 #addDishBox {
-  margin: 10% auto 5% auto;
+  margin: 5% auto 5% auto;
   width: 250px;
 }
 
 #listContainer {
-  margin: 10% auto 0 auto;
+  margin: 5% auto 0 auto;
   width: 400px;
 }
 

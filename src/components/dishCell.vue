@@ -12,8 +12,11 @@
     </div>
     <div id="buttonContainer">
       <button id="modifyDish">修改信息</button>
-      <button id="delDish1" @click="delDishFromCategory">从该类别中删除</button>
-      <button id="delDish2">完全删除</button>
+      <button id="delDish1"
+              @click="delDishFromCategory"
+              v-show="!isDefaultCategory">从该类别中删除</button>
+      <button id="delDish2"
+              @click="delDish">完全删除</button>
     </div>
   </b-media>
 </template>
@@ -21,7 +24,7 @@
 <script>
 export default {
   name: 'dishCell',
-  props: ['dishInfo', 'categoryID'],
+  props: ['dishInfo', 'categoryID', 'isDefaultCategory'],
   data () {
     return {
     }
@@ -30,7 +33,8 @@ export default {
     delDishFromCategory () {
       var temp = []
       this.$store.state.dish.relationMap.forEach((e, key) => {
-        if (e.has(this.dishInfo.dishID) && key !== this.categoryID) {
+        // 从该类别删除,key不能等于-1,不能等于该类别
+        if (e.has(this.dishInfo.dishID) && key !== this.categoryID && key !== -1) {
           temp.push(key)
         }
       })
@@ -41,6 +45,11 @@ export default {
         dishImg: null,
         dishDescription: this.dishInfo.dishDescription,
         categoryID: temp
+      })
+    },
+    delDish (event) {
+      this.$store.dispatch('dish/delDish', {
+        dishID: this.dishInfo.dishID
       })
     }
   }
@@ -80,7 +89,7 @@ export default {
   width: 50%;
   height: 50px;
   left: 50%;
-  padding-right: 25px;
+  padding: 0 25px 0 5px;
   font-size: 10pt;
   text-align: justify;
   overflow: hidden !important;

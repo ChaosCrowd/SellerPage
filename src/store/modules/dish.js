@@ -15,6 +15,9 @@ const getters = {}
 const mutations = {
   getCategoryInfo (state, categories) {
     state.all = categories
+    // 在数组头中添加一个所有菜品的类别
+    state.all.unshift({ categoryID: -1, categoryName: '所有菜品' })
+    state.relationMap.set(-1, new Set([]))
   },
 
   addCategory (state, category) {
@@ -31,10 +34,13 @@ const mutations = {
     })
     state.relationMap.delete(category.categoryID)
   },
+
   addDish (state, data) {
     // 把dishInfo加入dishMap
     // 由于是新建dish，所以id不可能已经存在
     state.dishMap.set(data.dishInfo.dishID, data.dishInfo)
+    // 把菜加入默认类别
+    state.relationMap.get(-1).add(data.dishInfo.dishID)
     // 把所属类别加入relationMap
     // 如果map键不存在那就新建
     data.categoryID.forEach(element => {
@@ -48,11 +54,15 @@ const mutations = {
   delDish (state, data) {
     // 把dishInfo从dishMap中删除
     state.dishMap.delete(data.dishInfo.dishID)
-    // 删除对应relation
+    // 删除对应relation(这个方法里并没有用到返回的catagoryID数组)
     // element是Set，并且是引用
     state.relationMap.forEach(element => {
       element.delete(data.dishInfo.dishID)
     })
+
+    // 手动追踪变化
+    state.dishMapChange += 1
+    state.relationMapChange += 1
     // 下面的方法效率高,但通用性差(从action modify中调用会出错),备用
     // data.categoryID.forEach(element => {
     //   state.relationMap.get(element).delete(data.dishInfo.dishID)
@@ -63,9 +73,11 @@ const mutations = {
     // 修改dishMap中对饮的dishInfo
     state.dishMap.set(data.dishInfo.dishID, data.dishInfo)
     // 修改类别(目前效率不高)
-    // 首先从所有类别中删除
-    state.relationMap.forEach(element => {
-      element.delete(data.dishInfo.dishID)
+    // 首先从所有类别中删除,但是不能从默认类别中删除
+    state.relationMap.forEach((element, key) => {
+      if (key !== -1) {
+        element.delete(data.dishInfo.dishID)
+      }
     })
     // 再重新添加
     // 注意这里categoryID有可能不存在于relationMap
@@ -88,7 +100,12 @@ const mutations = {
     // 把dishInfo中的元素加到两个Map里
     data.dishInfo.forEach(element => {
       state.dishMap.set(element.dishID, element)
-      state.relationMap.get(data.categoryID[0]).add(element.dishID)
+      // 所有菜都放入默认类别
+      state.relationMap.get(-1).add(element.dishID)
+      // 有类别的菜放入对应类别
+      if (data.categoryID[0] !== -1) {
+        state.relationMap.get(data.categoryID[0]).add(element.dishID)
+      }
     })
   }
 }

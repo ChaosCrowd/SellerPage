@@ -63,7 +63,8 @@ export default {
       // var name = this.categoryList.find(e => {
       //   return e.categoryID === parseInt(event.currentTarget.id)
       // }).categoryName
-      this.$emit('selectCategory', parseInt(event.currentTarget.id))
+      var temp = parseInt(event.currentTarget.id)
+      this.$emit('selectCategory', temp, (temp === -1))
     },
     showAddCategoryBox (event) {
       this.addCategoryBoxFlag = true

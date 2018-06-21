@@ -11,6 +11,7 @@
       <dishList v-else
                 :search="search"
                 :selectedID="selectedID"
+                :isDefaultCategory="isDefaultCategory"
                 @closeDishList="closeDishList">
       </dishList>
     </transition>
@@ -31,12 +32,15 @@ export default {
     return {
       search: '',
       selectedID: '', // 从categoryList传过来的值只能是string,在dishList中改成int
-      flag: true
+      flag: true,
+      isDefaultCategory: false
     }
   },
   methods: {
-    selectCategory (selectedID) {
+    selectCategory (selectedID, isDefaultCategory) {
       this.selectedID = selectedID
+      this.isDefaultCategory = isDefaultCategory
+      // alert(isDefaultCategory)
       this.flag = false
     },
     closeDishList () {
