@@ -8,8 +8,8 @@
     <b-form id="modifyDishForm">
       <b-img id="modifyDishImgPreview"
              :src="oldDishImg"
-             width="100"
-             height="100"></b-img>
+             width="80"
+             height="80"></b-img>
       <div id="modifyDishNameGroup">
         <p>菜名:</p>
         <b-form-input id="modifyDishNameInput"
@@ -23,13 +23,6 @@
                       type="number"
                       step="0.01"
                       v-model="form.dishPrice">
-        </b-form-input>
-      </div>
-      <div id="modifyDishVolumeGroup">
-        <p>数量:</p>
-        <b-form-input id="modifyDishVolumeInput"
-                      type="number"
-                      v-model="form.dishVolume">
         </b-form-input>
       </div>
       <div id="modifyBelongedCategoryGroup">
@@ -65,7 +58,6 @@ export default {
         dishID: '',
         dishName: '',
         dishPrice: '',
-        dishVolume: 0,
         dishImg: null,
         dishDescription: '',
         categoryID: []
@@ -96,7 +88,6 @@ export default {
     this.form.dishID = dishInfo.dishID
     this.form.dishName = dishInfo.dishName
     this.form.dishPrice = dishInfo.dishPrice
-    this.form.dishVolume = dishInfo.dishVolume
     this.form.dishImg = null
     this.form.dishDescription = dishInfo.dishDescription
     // 类别列表
@@ -118,7 +109,7 @@ export default {
 <style>
 #modifyDishBox {
   position: relative;
-  padding: 0 25px 0 0;
+  padding: 0 10px 0 10px;
 }
 
 /***
@@ -127,12 +118,12 @@ export default {
 #modifyDishHead {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 #modifyDishHead>p {
   margin: 0;
-  padding: 0 0 0 5px;
+  padding: 0 0 0 0px;
   font-size: 13pt;
   text-align: left;
   width: 130px;
@@ -152,11 +143,11 @@ export default {
 
 #modifyDishImgPreview {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 0;
+  right: 30px;
 }
 
-#modifyDishNameGroup, #modifyDishPriceGroup, #modifyDishVolumeGroup {
+#modifyDishNameGroup, #modifyDishPriceGroup{
   /* display: inline; */
   display: flex;
   flex-wrap: wrap;
@@ -165,13 +156,13 @@ export default {
   width: 60%;
 }
 
-#modifyDishNameInput, #modifyDishPriceInput, #modifyDishVolumeInput {
+#modifyDishNameInput, #modifyDishPriceInput{
   font-size: 10pt;
   width: 70%;
   padding: 4px 6px 4px 6px;
 }
 
-#modifyDishNameGroup>p, #modifyDishPriceGroup>p, #modifyDishVolumeGroup>p {
+#modifyDishNameGroup>p, #modifyDishPriceGroup>p{
   width: 40px;
   margin: 0;
   padding: 10px 0 0 0;

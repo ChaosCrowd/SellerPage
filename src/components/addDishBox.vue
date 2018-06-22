@@ -14,11 +14,6 @@
                       v-model="form.dishPrice"
                       placeholder="菜品价格">
         </b-form-input>
-        <b-form-input id="addDishVolumeInput"
-                      type="number"
-                      v-model="form.dishVolume"
-                      placeholder="菜品数量">
-        </b-form-input>
         <p id="selectCategory">选择类别</p>
         <b-form-checkbox-group id="checkBox1"
                                v-model="form.categoryID"
@@ -54,7 +49,6 @@ export default {
       form: {
         dishName: '',
         dishPrice: null,
-        dishVolume: null,
         dishImg: null,
         dishDescription: '',
         categoryID: []

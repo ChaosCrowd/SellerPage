@@ -53,7 +53,7 @@ export default {
 
 <style>
 #listContainer {
-  padding-left: 25px;
+  padding: 0 25px 0 25px;
 }
 
 #searchCategory {
