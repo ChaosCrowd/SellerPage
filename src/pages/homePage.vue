@@ -20,6 +20,10 @@ export default {
       })
     }, err => {
       console.error(err)
+    }).then(() => {
+      this.$store.dispatch('order/getUnacceptedOrderList')
+      this.$store.dispatch('order/getAcceptedOrderList')
+      this.$store.dispatch('order/getFinishedOrderList')
     })
   }
 }

@@ -4,6 +4,7 @@ import signinPage from '@/pages/signinPage'
 import registPage from '@/pages/registPage'
 import homePage from '@/pages/homePage'
 import dishManagePage from '@/pages/dishManagePage'
+import orderManagePage from '@/pages/orderManagePage'
 
 Vue.use(Router)
 
@@ -33,6 +34,10 @@ export default new Router({
         {
           path: 'dishManage',
           component: dishManagePage
+        },
+        {
+          path: 'orderManage',
+          component: orderManagePage
         }
       ]
     }
