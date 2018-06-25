@@ -11,6 +11,7 @@
         <b-navbar-nav>
           <router-link to="/home/dishManage">管理菜品</router-link>
           <router-link to="/home/orderManage">管理订单</router-link>
+          <router-link to="/home/#">管理店铺</router-link>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

@@ -157,6 +157,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       categoryAPI.getCategoryInfo(response => {
         if (response.status === 200) {
+          console.log('!!!!!' + JSON.stringify(response.body.data))
           commit('getCategoryInfo', response.body.data)
           resolve()
         } else if (response.status === 403) {
