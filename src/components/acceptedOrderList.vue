@@ -2,8 +2,8 @@
   <div id="acceptedOrderListContainer">
     <h5>处理中</h5>
     <div id="acceptedOrderListBody">
-      <div v-for="order in acceptedOrderList" :key="order.orderID">
-        <acceptedOrderCard></acceptedOrderCard>
+      <div v-for="orderInfo in acceptedOrderList" :key="orderInfo.orderID">
+        <acceptedOrderCard :orderInfo="orderInfo"></acceptedOrderCard>
       </div>
     </div>
   </div>
@@ -19,17 +19,19 @@ export default {
   },
   data () {
     return {
-      acceptedOrderList: [
-        {
-          orderID: 1
-        },
-        {
-          orderID: 2
-        },
-        {
-          orderID: 3
-        }
-      ]
+    }
+  },
+  computed: {
+    acceptedOrderList () {
+      var temp = []
+      // 手动追踪
+      // eslint-disable-next-line
+      this.$store.state.order.acceptedOrderListTracker
+      // eslint-disable-next-line
+      this.$store.state.order.acceptedOrderList.forEach(e => {
+        temp.push(e)
+      })
+      return temp
     }
   }
 }

@@ -144,7 +144,11 @@ export default {
 #addCategoryBox {
   position: absolute;
   top: 50px;
-  left: 100px;
+
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
   overflow: hidden;
   z-index: 1 !important;
 }
@@ -159,13 +163,9 @@ export default {
 @keyframes bounce-in {
   0% {
     transform: scale(0);
-    top: 0;
-    left: 0;
   }
   50% {
     transform: scale(1.5);
-    top: 50px;
-    left: 100px;
   }
   100% {
     transform: scale(1);

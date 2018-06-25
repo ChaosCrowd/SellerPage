@@ -52,6 +52,7 @@ export default {
       this.isShow[index] = !this.isShow[index]
       // eslint-disable-next-line
       this.isShow.push(1)
+      this.isShow.splice(this.isShow.length - 1, 1)
       // this.isShow.length += 1
       // this.isShow.length -= 1
     }

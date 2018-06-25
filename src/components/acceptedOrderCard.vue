@@ -1,14 +1,14 @@
 <template>
   <div id="acceptedOrderCardContainer">
     <div id="acceptedOrderCardHeader">
-      <p id="acceptedOrderOrderIDText">订单号: {{ this.orderInfo.orderID }}</p>
-      <p id="acceptedOrderTableIDText">桌号: {{ this.orderInfo.tableID }}</p>
-      <p id="acceptedOrderTimeText">{{ this.orderInfo.time }}</p>
+      <p id="acceptedOrderOrderIDText">订单号: {{ localOrderInfo.orderID }}</p>
+      <p id="acceptedOrderTableIDText">桌号: {{ localOrderInfo.tableID }}</p>
+      <p id="acceptedOrderTimeText">{{ localOrderInfo.time }}</p>
     </div>
     <div id="acceptedOrderCardBody">
       <b-table small
                hover
-               :items="this.orderInfo.orderContent"
+               :items="this.localOrderInfo.specificOrderContent"
                :fields="this.fields">
         <template slot="state" slot-scope="row">
           <p id="acceptedOrderState"
@@ -23,20 +23,24 @@
 <script>
 export default {
   name: 'acceptedOrderCard',
-  props: ['orderID'],
+  props: ['orderInfo'],
   data () {
     return {
-      orderInfo: {
-        orderID: null,
-        tableID: null,
-        time: null,
-        orderContent: []
-      },
       fields: [
         { key: '菜名', label: '菜名' },
         { key: '数量', label: '数量' },
         { key: 'state', label: '状态' }
-      ]
+      ],
+      // asdf
+      localOrderInfo: {
+        orderID: null,
+        orderState: null,
+        tableID: null,
+        time: null,
+        orderContent: [],
+        specificOrderContent: [],
+        totalPrice: null
+      }
     }
   },
   methods: {
@@ -51,45 +55,19 @@ export default {
     }
   },
   mounted () {
-    this.orderInfo.orderID = 5
-    // 先写死数据
-    this.orderInfo.tableID = 10
-    this.orderInfo.time = (new Date()).toLocaleString()
-    this.orderInfo.orderContent.push({
-      菜名: '烤鱿鱼丝',
-      数量: 2,
-      state: '等待中',
-      _rowVariant: 'none',
-      _cellVariants: { state: 'warning' }
+    this.localOrderInfo = JSON.parse(JSON.stringify(this.orderInfo))
+    this.localOrderInfo.time = (new Date(this.localOrderInfo.time)).toLocaleString()
+    this.localOrderInfo.specificOrderContent = []
+    this.localOrderInfo.orderContent.forEach((e) => {
+      this.localOrderInfo.specificOrderContent.push({
+        菜名: this.$store.state.dish.dishMap.get(e.dishID).dishName,
+        数量: e.dishNum,
+        state: '等待中',
+        _rowVariant: 'none',
+        _cellVariants: { state: 'warning' }
+      })
     })
-    this.orderInfo.orderContent.push({
-      菜名: '炒土豆丝',
-      数量: 2,
-      state: '等待中',
-      _rowVariant: 'none',
-      _cellVariants: { state: 'warning' }
-    })
-    this.orderInfo.orderContent.push({
-      菜名: '炒土豆丝',
-      数量: 2,
-      state: '等待中',
-      _rowVariant: 'none',
-      _cellVariants: { state: 'warning' }
-    })
-    this.orderInfo.orderContent.push({
-      菜名: '炒土豆丝',
-      数量: 2,
-      state: '等待中',
-      _rowVariant: 'none',
-      _cellVariants: { state: 'warning' }
-    })
-    this.orderInfo.orderContent.push({
-      菜名: '炒土豆丝',
-      数量: 2,
-      state: '等待中',
-      _rowVariant: 'none',
-      _cellVariants: { state: 'warning' }
-    })
+    // console.log(JSON.stringify(this.$store.state.order.acceptedOrderList))
   }
 }
 </script>
