@@ -105,7 +105,8 @@ const actions = {
   getUnacceptedOrderList ({ commit }) {
     orderAPI.getOrderInfo({ orderState: 'unaccepted' }, response => {
       if (response.status === 200) {
-        commit('getUnacceptedOrderList', response.body.data)
+        // alert(JSON.stringify(response.data))
+        commit('getUnacceptedOrderList', response.data.data)
       } else if (response.status === 403) {
         alert('getUnacceptedOrderList fails!')
       }
@@ -117,7 +118,7 @@ const actions = {
   getAcceptedOrderList ({ commit }) {
     orderAPI.getOrderInfo({ orderState: 'accepted' }, response => {
       if (response.status === 200) {
-        commit('getAcceptedOrderList', response.body.data)
+        commit('getAcceptedOrderList', response.data.data)
       } else if (response.status === 403) {
         alert('getAcceptedOrderList fails!')
       }
@@ -129,7 +130,7 @@ const actions = {
   getFinishedOrderList ({ commit }) {
     orderAPI.getOrderInfo({ orderState: 'finished' }, response => {
       if (response.status === 200) {
-        commit('getFinishedOrderList', response.body.data)
+        commit('getFinishedOrderList', response.data.data)
       } else if (response.status === 403) {
         alert('getFinishedOrderList fails!')
       }
@@ -141,7 +142,7 @@ const actions = {
   acceptOrder ({ commit }, data) {
     orderAPI.acceptOrder(data, response => {
       if (response.status === 200) {
-        commit('acceptOrder', response.body.data)
+        commit('acceptOrder', response.data.data)
       } else if (response.status === 403) {
         alert('acceptOrder fails!')
       }
@@ -153,7 +154,7 @@ const actions = {
   refuseOrder ({ commit }, data) {
     orderAPI.refuseOrder(data, response => {
       if (response.status === 200) {
-        commit('refuseOrder', response.body.data)
+        commit('refuseOrder', response.data.data)
       } else if (response.status === 403) {
         alert('refuseOrder fails!')
       }
@@ -165,7 +166,7 @@ const actions = {
   finishOrder ({ commit }, data) {
     orderAPI.finishOrder(data, response => {
       if (response.status === 200) {
-        commit('finishOrder', response.body.data)
+        commit('finishOrder', response.data.data)
       } else if (response.status === 403) {
         alert('finishOrder fails!')
       }

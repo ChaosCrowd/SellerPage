@@ -16,6 +16,10 @@ export default {
   components: {
     addDishBox,
     listContainer
+  },
+  data () {
+    return {
+    }
   }
 }
 </script>
@@ -27,6 +31,7 @@ export default {
   max-width: 100%;
   flex-wrap: wrap;
   width: 100%;
+  background-image: url();
 }
 
 #addDishBox {

@@ -96,6 +96,7 @@ export default {
         categoryName: this.newName
       }).then(() => {
         this.isActive = false
+        this.selectedName = this.newName
       }, err => {
         console.log(err)
       })

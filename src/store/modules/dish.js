@@ -25,7 +25,10 @@ const mutations = {
   },
 
   renameCategory (state, category) {
-    state.all.find(ele => (ele.categoryID === category.categoryID)).categoryName = category.categoryName
+    // alert(category.categoryName)
+    state.all.find(ele => {
+      return ele.categoryID === category.categoryID
+    }).categoryName = category.categoryName
   },
 
   delCategory (state, category) {
@@ -93,9 +96,12 @@ const mutations = {
   getDishInfo (state, data) {
     // 当前的实现仅针对第一种request
     // 如果categoryID不存在于relationMap中
+    // alert('getDishInfo'+JSON.stringify(data))
     if (!state.relationMap.has(data.categoryID[0])) {
       state.relationMap.set(data.categoryID[0], new Set())
     }
+    // 没有菜直接返回
+    if (data.dishInfo === []) return
     // alert(JSON.stringify(state.relationMap.get(data.categoryID[0])))
     // 把dishInfo中的元素加到两个Map里
     data.dishInfo.forEach(element => {
@@ -115,7 +121,7 @@ const actions = {
   addCategory ({ commit }, data) {
     categoryAPI.addCategory(data, response => {
       if (response.status === 200) {
-        commit('addCategory', response.body.data)
+        commit('addCategory', response.data.data)
       } else if (response.status === 403) {
         alert('addCategory fails')
       }
@@ -128,7 +134,7 @@ const actions = {
   delCategory ({ commit }, data) {
     categoryAPI.delCategory(data, response => {
       if (response.status === 200) {
-        commit('delCategory', response.body.data)
+        commit('delCategory', response.data.data)
       } else if (response.status === 403) {
         alert('delCategory fails!')
       }
@@ -142,7 +148,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       categoryAPI.renameCategory(data, response => {
         if (response.status === 200) {
-          commit('renameCategory', response.body.data)
+          commit('renameCategory', response.data.data)
           resolve()
         } else if (response.status === 403) {
           reject(new Error('renameCategory fails!'))
@@ -157,8 +163,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       categoryAPI.getCategoryInfo(response => {
         if (response.status === 200) {
-          console.log('!!!!!' + JSON.stringify(response.body.data))
-          commit('getCategoryInfo', response.body.data)
+          console.log('!!!!!' + JSON.stringify(response.data.data))
+          commit('getCategoryInfo', response.data.data)
           resolve()
         } else if (response.status === 403) {
           // alert('getCategoryInfo fails!')
@@ -174,7 +180,7 @@ const actions = {
   addDish ({ commit }, data) {
     dishAPI.addDish(data, response => {
       if (response.status === 200) {
-        commit('addDish', response.body.data)
+        commit('addDish', response.data.data)
       } else if (response.status === 403) {
         alert('addDish fail!')
       }
@@ -186,7 +192,7 @@ const actions = {
   delDish ({ commit }, data) {
     dishAPI.delDish(data, response => {
       if (response.status === 200) {
-        commit('delDish', response.body.data)
+        commit('delDish', response.data.data)
       } else if (response.status === 403) {
         alert('delDish fail!')
       }
@@ -198,7 +204,7 @@ const actions = {
   modifyDish ({ commit }, data) {
     dishAPI.modifyDish(data, response => {
       if (response.status === 200) {
-        commit('modifyDish', response.body.data)
+        commit('modifyDish', response.data.data)
       } else if (response.status === 403) {
         alert('modifyDish fail!')
       }
@@ -210,12 +216,12 @@ const actions = {
   getDishInfo ({ commit }, data) {
     dishAPI.getDishInfo(data, response => {
       if (response.status === 200) {
-        commit('getDishInfo', response.body.data)
+        commit('getDishInfo', response.data.data)
       } else if (response.status === 403) {
-        alert('getDishInfo fail!')
+        alert('getDishInfo fail! 403')
       }
     }, response => {
-      alert('getDishInfo fail!')
+      alert('getDishInfo fail!!!')
     })
   }
 }

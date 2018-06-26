@@ -5,6 +5,7 @@ import registPage from '@/pages/registPage'
 import homePage from '@/pages/homePage'
 import dishManagePage from '@/pages/dishManagePage'
 import orderManagePage from '@/pages/orderManagePage'
+import storeManagePage from '@/pages/storeManagePage'
 
 Vue.use(Router)
 
@@ -38,6 +39,10 @@ export default new Router({
         {
           path: 'orderManage',
           component: orderManagePage
+        },
+        {
+          path: 'storeManage',
+          component: storeManagePage
         }
       ]
     }

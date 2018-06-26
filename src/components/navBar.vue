@@ -1,17 +1,17 @@
 <template>
   <div>
-    <b-navbar toggleable="md" type="dark" variant="info">
+    <b-navbar toggleable="md" type="dark" variant="dark" class="fixed-top">
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <b-navbar-brand href="/signin">码上点餐</b-navbar-brand>
+      <b-navbar-brand to="/signin">码上点餐</b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
         <b-navbar-nav>
-          <router-link to="/home/dishManage">管理菜品</router-link>
-          <router-link to="/home/orderManage">管理订单</router-link>
-          <router-link to="/home/#">管理店铺</router-link>
+          <b-nav-item to="/home/dishManage">管理菜品</b-nav-item>
+          <b-nav-item to="/home/orderManage">管理订单</b-nav-item>
+          <b-nav-item to="/home/storeManage">管理店铺</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
