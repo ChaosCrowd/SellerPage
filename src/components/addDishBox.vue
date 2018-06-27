@@ -17,7 +17,9 @@
                       placeholder="菜品价格">
         </b-form-input>
         <p id="selectCategoryTitle">选择类别</p>
-        <b-form-checkbox-group id="checkBox1"
+        <b-form-checkbox-group id="selectCategoryCheckBox"
+                               buttons
+                               button-variant="outline-secondary"
                                v-model="form.categoryID"
                                :options="options">
         </b-form-checkbox-group>
@@ -41,10 +43,11 @@
                  type="file"
                  accept="image/*"
                  @change="addDishImg" />
-          <canvas ref="addDishImgPreview" height="0"></canvas>
+          <p ref="addDishImgPath"></p>
+          <canvas ref="addDishImgPreview" height="0" width="0"></canvas>
         </div>
       </b-form>
-      <b-button class="btn btn-dark" @click="onSubmit">确认添加</b-button>
+      <b-button class="btn btn-outline-secondary" @click="onSubmit">确认添加</b-button>
       <!-- <b-button variant="primary" @click="showInfo">显示</b-button> -->
   </div>
 </template>
@@ -86,6 +89,7 @@ export default {
       let reader = new FileReader()
       let img = new Image()
 
+      this.$refs['addDishImgPath'].innerText = file.name
       // 读取图片
       reader.readAsDataURL(file)
 
@@ -140,17 +144,50 @@ export default {
 </script>
 
 <style>
+/*输入框样式*/
 #addDishNameInput, #addDishPriceInput, #addDishDescriptionInput {
+  box-shadow: rgba(0, 0, 0, 0.117647) 1px 2px 6px, rgba(0, 0, 0, 0.117647) 1px 2px 6px;
   border-radius: 0%;
-  background-color: white !important;
-  border-color: #6c757d;
-  color: rgb(66, 66, 66);
+  border: none;
+  background-color: #7f8183;
+  opacity: 0.7;
+  /* border-color: #6c757d; */
+  color: white;
 }
 
-#selectCategoryTitle, #addDishImgInputBox {
+#addDishNameInput:focus, #addDishPriceInput:focus, #addDishDescriptionInput:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+/*类别选择样式*/
+#selectCategoryTitle {
   font-weight: 550;
-  text-align: left;
-  padding-left: 12px;
+  text-align: center;
+  margin: 5px 0 5px 0;
+}
+
+#selectCategoryCheckBox {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 0 0 15px;
+}
+
+#selectCategoryCheckBox>label {
+  /* background-color: #7f8183; */
+  /* box-shadow: rgba(0, 0, 0, 0.117647) 1px 2px 6px, rgba(0, 0, 0, 0.117647) 1px 2px 6px; */
+  border: none;
+  font-size: 9pt;
+  font-weight: 550;
+  border-radius: 0%;
+  margin: 5px;
+  padding: 4px 8px 4px 8px;
+}
+
+/* 图片选择样式 */
+#addDishImgInputBox {
+  position: relative;
+  font-weight: 550;
+  text-align: center;
   margin: 5px 0 5px 0;
 }
 
@@ -158,7 +195,37 @@ export default {
   display: none;
 }
 
-::-webkit-input-placeholder {
-  text-align: left !important;
+#addDishImgInputBox>label {
+  box-shadow: rgba(0, 0, 0, 0.117647) 1px 2px 6px, rgba(0, 0, 0, 0.117647) 1px 2px 6px;
+  width: 80px;
+  padding: 2px 5px 2px 5px;
+  margin: 5px 85px 5px 85px;
+  background-color: #7f8183;
+  color: white;
+  opacity: 0.7;
+  transition: .15s all ease-in-out;
+}
+
+#addDishImgInputBox>label:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color: #4f5052;
+}
+
+#addDishImgInputBox>label:active {
+  transform: scale(0.95);
+}
+
+#addDishImgInputBox>canvas {
+
+}
+
+/* #selectCategoryCheckBox>label:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+} */
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: whitesmoke !important;
+    opacity: 1; /* Firefox */
 }
 </style>

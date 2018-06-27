@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="md" type="dark" variant="dark" class="fixed-top">
+    <b-navbar toggleable="md" type="dark" variant="secondary" class="fixed-top">
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
@@ -17,18 +17,16 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
 
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
+          <b-nav-item-dropdown text="主题" right>
+            <b-dropdown-item href="#">黑</b-dropdown-item>
+            <b-dropdown-item href="#">白</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown text="用户" right>
             <!-- Using button-content slot -->
-            <template slot="button-content">
-              <em>User</em>
-            </template>
+            <!-- <template slot="button-content">
+              <em>用户</em>
+            </template> -->
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item href="#">Signout</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -49,4 +47,7 @@ input {
     margin:5px 0;
 }
 
+nav {
+  background-color: #9A9C9D !important;
+}
 </style>

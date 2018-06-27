@@ -5,21 +5,26 @@
                     autofocus
                     v-model="newName"
                     id="renameInput"></b-form-input>
-      <button id="renameConfirm"
-              v-show="isActive"
-              @click="renameConfirm">确认</button>
-      <button id="renameCancel"
-              v-show="isActive"
-              @click="closeInput">取消</button>
-      <p>{{ this.selectedName }}</p>
-      <button id="renameCategoryButton"
-              @click="showInput"
-              v-show="!isDefaultCategory">修改类名</button>
-      <button id="delCategoryButton"
-              @click="delCategory"
-              v-show="!isDefaultCategory">删除类别</button>
-      <button id="return"
-              @click="close">返回</button>
+      <b-button id="renameConfirm"
+                class="btn btn-outline-secondary"
+                v-show="isActive"
+                @click="renameConfirm">确认</b-button>
+      <b-button id="renameCancel"
+                class="btn btn-outline-secondary"
+                v-show="isActive"
+                @click="closeInput">取消</b-button>
+      <p ref="categoryNameText">{{ this.selectedName }}</p>
+      <b-button id="renameCategoryButton"
+                class="btn btn-outline-secondary"
+                @click="showInput"
+                v-show="!isDefaultCategory">修改类名</b-button>
+      <b-button id="delCategoryButton"
+                class="btn btn-outline-secondary"
+                @click="delCategory"
+                v-show="!isDefaultCategory">删除类别</b-button>
+      <b-button id="returnButton"
+                class="btn btn-outline-secondary"
+                @click="close">返回</b-button>
     </div>
     <transition name="slide-left" mode="out-in">
       <ul class="list-unstyled scrollbar-info" id="dishContents" v-if="!modifyDishFlag">
@@ -55,6 +60,7 @@ export default {
       isActive: false,
       newName: '',
       selectedName: '',
+      tempName: '',
       selectedDishID: 1,
       modifyDishFlag: false
     }
@@ -85,9 +91,13 @@ export default {
     },
     showInput (event) {
       this.isActive = true
+      this.newName = this.selectedName
+      this.tempName = this.selectedName
+      this.selectedName = ''
     },
     closeInput (event) {
       this.isActive = false
+      this.selectedName = this.tempName
     },
     renameConfirm (event) {
       if (this.newName === '') return
@@ -130,6 +140,7 @@ export default {
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  height: 66px;
   margin-bottom: 10px;
   padding-left: 5px;
   font-size: 15pt;
@@ -152,27 +163,63 @@ rename部分
 */
 #listHead>#renameInput {
   position: absolute;
-  background-color: white;
+  opacity: 0.7;
   width: 40%;
   font-size: 15pt;
+  border: none;
+  border-radius: 0%;
   padding: 0;
   margin: 0 0 0 0;
 }
 
+#listHead>#renameInput:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
 #renameConfirm {
   position: absolute;
-  margin: 0;
-  padding: 0;
-  left: 45%;
+  border-radius: 0%;
+  margin: 3px 0 0 0 !important;
+  padding: 2px 5px 2px 5px;
+  left: 155px;
 }
 
 #renameCancel {
   position: absolute;
-  margin: 0;
-  padding: 0;
-  left: 55%;
+  border-radius: 0%;
+  margin: 3px 0 0 0 !important;
+  padding: 2px 5px 2px 5px;
+  left: 200px;
 }
 
+/* #renameConfirm, #renameCancel {
+  background-color: #7f8183;
+  opacity: 0.7;
+} */
+
+#renameCategoryButton {
+  border-radius: 0%;
+  position: absolute;
+  padding: 2px 5px 2px 5px;
+  top: 30px;
+  left: 5px;
+}
+
+#delCategoryButton {
+  border-radius: 0%;
+  position: absolute;
+  padding: 2px 5px 2px 5px;
+  top: 30px;
+  left: 80px;
+}
+
+#returnButton {
+  border-radius: 0%;
+  position: absolute;
+  padding: 2px 5px 2px 5px;
+  top: 30px;
+  left: 155px;
+}
 /* #renameCategoryButton {
   left: 50;
 }
@@ -181,7 +228,7 @@ rename部分
   left: 100px;
 }
 
-#return {
+#Button {
   left: 200px;
 }*/
 

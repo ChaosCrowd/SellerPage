@@ -1,7 +1,8 @@
 <template>
   <div id="listContainer">
     <div id="searchCategory">
-      <input type="text" v-model="search" placeholder="搜索名称..."/>
+      <b-form-input type="text" v-model="search" placeholder="搜索名称...">
+      </b-form-input>
     </div>
     <transition name="slide-left" mode="out-in">
       <categoryList v-if="flag"
@@ -58,6 +59,24 @@ export default {
 
 #searchCategory {
   max-width: 342px;
+}
+
+#searchCategory>input {
+  box-shadow: rgba(0, 0, 0, 0.117647) 1px 2px 6px, rgba(0, 0, 0, 0.117647) 1px 2px 6px;
+  border-radius: 0%;
+  border: none;
+  background-color: #7f8183;
+  opacity: 0.7;
+  /* border-color: #6c757d; */
+  color: white;
+}
+
+#searchCategory>input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+#searchCategory>input:active {
+  border: none;
 }
 
 #categoryList, #dishList {
