@@ -216,16 +216,16 @@ export default {
   transform: scale(0.95);
 }
 
-#addDishImgInputBox>canvas {
+/* #addDishImgInputBox>canvas {
 
-}
+} */
 
 /* #selectCategoryCheckBox>label:focus {
   box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 } */
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: whitesmoke !important;
+    color: rgb(178, 187, 212) !important;
     opacity: 1; /* Firefox */
 }
 </style>

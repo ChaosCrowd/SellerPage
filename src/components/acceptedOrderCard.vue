@@ -16,7 +16,7 @@
         </template>
       </b-table>
     </div>
-    <button>完成订单</button>
+    <button @click="finishOrder">完成订单</button>
   </div>
 </template>
 
@@ -52,6 +52,9 @@ export default {
         item.state = '已完成'
         item._rowVariant = 'success'
       }
+    },
+    finishOrder () {
+      this.$store.dispatch('order/finishOrder', { orderID: this.localOrderInfo.orderID })
     }
   },
   mounted () {

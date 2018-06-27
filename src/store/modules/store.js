@@ -27,6 +27,7 @@ const mutations = {
   },
 
   getTableInfo (state, data) {
+    state.tableList = []
     data.tableID.forEach((e) => {
       state.tableList.push({ tableID: e })
     })

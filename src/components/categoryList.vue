@@ -85,6 +85,7 @@ export default {
   display: flex;
   max-width: 400px;
   min-height: 160px;
+  min-height: 250px;
   max-height: 300px;
   flex-wrap: wrap;
   overflow-y: scroll;
@@ -116,9 +117,9 @@ export default {
   margin: 0;
 }
 
-/* .categoryCardBox {
+.categoryCardBox {
   height: 70px;
-} */
+}
 
 /*categoryCard的动画*/
 .fade-enter-active, .fade-leave-active {
@@ -135,9 +136,9 @@ export default {
   height: 50px;
 }
 
-/* #addCategoryButtonBox {
+#addCategoryButtonBox {
   height: 70px;
-} */
+}
 
 /* !!!!!!!!子组件 */
 /*addCategoryBox的style*/
@@ -149,7 +150,6 @@ export default {
   margin-right: auto;
   left: 0;
   right: 0;
-  overflow: hidden;
   z-index: 1 !important;
 }
 

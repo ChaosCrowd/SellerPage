@@ -89,7 +89,7 @@ export default {
   mounted () {
     this.isActive = false
     this.$store.dispatch('store/getBasicInfo').then(() => {
-      alert(JSON.stringify(this.form))
+      // alert(JSON.stringify(this.form))
       this.newForm = JSON.parse(JSON.stringify(this.form))
     }, (err) => {
       console.log(err)

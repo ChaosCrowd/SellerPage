@@ -68,7 +68,7 @@ const mutations = {
     // 拒绝的订单也视为结束
     state.finishedOrderList.set(data.orderID, temp)
 
-    state.acceptedOrderListTracker += 1
+    state.unacceptedOrderListTracker += 1
     state.finishedOrderListTracker += 1
   },
 
@@ -82,7 +82,7 @@ const mutations = {
     // 拒绝的订单也视为结束
     state.finishedOrderList.set(data.orderID, temp)
 
-    state.unacceptedOrderListTracker += 1
+    state.acceptedOrderListTracker += 1
     state.finishedOrderListTracker += 1
   },
 

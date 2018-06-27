@@ -27,8 +27,8 @@
             <!-- <template slot="button-content">
               <em>用户</em>
             </template> -->
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Signout</b-dropdown-item>
+            <!-- <b-dropdown-item href="#">个人信息</b-dropdown-item> -->
+            <b-dropdown-item href="#" @click="signout">退出登录</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -38,7 +38,13 @@
 
 <script>
 export default {
-  name: 'navBar'
+  name: 'navBar',
+  methods: {
+    signout (event) {
+      window.localStorage.removeItem('data')
+      window.location.reload()
+    }
+  }
 }
 </script>
 

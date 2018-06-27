@@ -61,14 +61,6 @@ export default {
   },
   data () {
     return {
-      // tableList: [
-      //   { tableID: 1 },
-      //   { tableID: 2 },
-      //   { tableID: 3 },
-      //   { tableID: 4 },
-      //   { tableID: 5 },
-      //   { tableID: 6 }
-      // ],
       qrcodeFlag: false,
       qrcodeSetting: {
         value: 'http://www.baidu.com',
@@ -246,7 +238,7 @@ export default {
   border: none;
   border-radius: 0%;
   color: #2a2a2b;
-  box-shadow: rgba(0, 0, 0, 0.117647) 1px 2px 6px, rgba(0, 0, 0, 0.117647) 1px 2px 6px;
+  box-shadow: none;
 }
 
 #addTableGroup small {
@@ -263,9 +255,9 @@ export default {
   margin: 0 10px 0 10px;
 }
 
-#addTableInput:focus {
+/* #addTableInput:focus {
   box-shadow: 0 0 0 -0.2rem rgba(108, 117, 125, 0.5);
-}
+} */
 
 #qrcodeBox {
   position: absolute;

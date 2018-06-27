@@ -9,8 +9,8 @@
             总价: {{ this.orderInfo.totalPrice }}
           </template>
         </b-table>
-        <button>接收订单</button>
-        <button>拒绝订单</button>
+        <button @click="acceptOrder">接收订单</button>
+        <button @click="refuseOrder">拒绝订单</button>
     </div>
   </div>
 </template>
@@ -31,10 +31,19 @@ export default {
       }
     }
   },
+  methods: {
+    acceptOrder (event) {
+      this.$store.dispatch('order/acceptOrder', { orderID: this.orderID })
+    },
+    refuseOrder (event) {
+      this.$store.dispatch('order/refuseOrder', { orderID: this.orderID })
+    }
+  },
   mounted () {
     // alert(this.orderID)
     // alert(JSON.stringify(this.$store.state.order.unacceptedOrderList.get(this.orderID)))
     this.orderInfo = JSON.parse(JSON.stringify(this.$store.state.order.unacceptedOrderList.get(this.orderID)))
+    // alert(JSON.stringify(this.orderInfo))
     this.orderInfo.time = (new Date(this.orderInfo.time)).toLocaleString()
     this.orderInfo.specificOrderContent = []
     // alert(JSON.stringify(this.orderInfo.orderContent))

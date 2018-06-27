@@ -14,6 +14,8 @@ export default {
   components: {
     unacceptedOrderList,
     acceptedOrderList
+  },
+  mounted () {
   }
 }
 </script>

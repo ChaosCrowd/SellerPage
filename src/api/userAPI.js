@@ -12,6 +12,6 @@ export default {
   },
 
   signup (data, onSuccess, onError) {
-    apiConstant.myAxios.post('signup', data, onSuccess, onError)
+    apiConstant.myAxios.post('signup', data).then(onSuccess, onError)
   }
 }

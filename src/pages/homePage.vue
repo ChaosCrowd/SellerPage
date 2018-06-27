@@ -34,13 +34,15 @@ export default {
     }, err => {
       console.error(err)
     }).then(() => {
-      this.$store.dispatch('order/getUnacceptedOrderList')
       setTimeout(() => {
-        this.$store.dispatch('order/getAcceptedOrderList')
+        this.$store.dispatch('order/getUnacceptedOrderList')
       }, 500)
       setTimeout(() => {
-        this.$store.dispatch('order/getFinishedOrderList')
+        this.$store.dispatch('order/getAcceptedOrderList')
       }, 1000)
+      setTimeout(() => {
+        this.$store.dispatch('order/getFinishedOrderList')
+      }, 1500)
     })
   }
 }

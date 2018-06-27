@@ -14,6 +14,19 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 // Vue.use(VueResource)
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.needSignin) {
+    if (window.localStorage.data) {
+      next()
+    } else {
+      alert('请先登录')
+      next('/signin')
+    }
+  } else {
+    next()
+  }
+})
+
 // Vue.http.options.root = 'https://private-924fb8-order51.apiary-mock.com'
 /* eslint-disable no-new */
 new Vue({

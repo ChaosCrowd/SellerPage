@@ -13,11 +13,6 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/test',
-      name: 'test',
-      component: homePage
-    },
-    {
       path: '/signin',
       name: 'signin',
       component: signinPage
@@ -31,18 +26,30 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: homePage,
+      meta: {
+        needSignin: true
+      },
       children: [
         {
           path: 'dishManage',
-          component: dishManagePage
+          component: dishManagePage,
+          meta: {
+            needSignin: true
+          }
         },
         {
           path: 'orderManage',
-          component: orderManagePage
+          component: orderManagePage,
+          meta: {
+            needSignin: true
+          }
         },
         {
           path: 'storeManage',
-          component: storeManagePage
+          component: storeManagePage,
+          meta: {
+            needSignin: true
+          }
         }
       ]
     }
