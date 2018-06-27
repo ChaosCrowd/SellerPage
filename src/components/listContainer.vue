@@ -58,7 +58,8 @@ export default {
 }
 
 #searchCategory {
-  max-width: 342px;
+  max-width: 280px;
+  margin: 0 auto 0 auto;
 }
 
 #searchCategory>input {

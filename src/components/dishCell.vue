@@ -46,7 +46,7 @@ export default {
         dishID: this.dishInfo.dishID,
         dishName: this.dishInfo.dishName,
         dishPrice: this.dishInfo.dishPrice,
-        dishImg: null,
+        dishImg: '',
         dishDescription: this.dishInfo.dishDescription,
         categoryID: temp
       })

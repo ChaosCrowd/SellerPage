@@ -78,6 +78,7 @@ export default {
     },
 
     confirmModify (event) {
+      // alert(JSON.stringify(this.newForm))
       this.$store.dispatch('store/modifyBasicInfo', this.newForm).then(() => {
         this.isActive = false
       }, (err) => {
@@ -88,6 +89,7 @@ export default {
   mounted () {
     this.isActive = false
     this.$store.dispatch('store/getBasicInfo').then(() => {
+      alert(JSON.stringify(this.form))
       this.newForm = JSON.parse(JSON.stringify(this.form))
     }, (err) => {
       console.log(err)

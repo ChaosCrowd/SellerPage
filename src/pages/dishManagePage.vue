@@ -36,7 +36,8 @@ export default {
 
 #addDishBox {
   margin: 5% auto 5% auto;
-  width: 250px;
+  padding: 0 25px 0 25px;
+  width: 300px;
 }
 
 #listContainer {

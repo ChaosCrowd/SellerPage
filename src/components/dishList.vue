@@ -116,7 +116,6 @@ export default {
       this.$store.dispatch('dish/delCategory', { categoryID: this.selectedCategoryID })
     },
     delDishFromCategory (event) {
-
     },
     showModifyDishBox (dishID) {
       this.selectedDishID = dishID

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form>
       <b-form-group id="usernameGroup"
                     :label="label"
                     label-for="usernameInput">
@@ -19,8 +19,8 @@
                       placeholder="密码">
         </b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary">登录</b-button>
-      <b-button type="reset" variant="danger">清空</b-button>
+      <b-button class="btn btn-outline-secondary" @click="signin">登录</b-button>
+      <b-button class="btn btn-outline-secondary" @click="regist">注册</b-button>
     </b-form>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    onSubmit (evt) {
+    signin (evt) {
       evt.preventDefault()
       userAPI.signin(this.form,
         response => {
@@ -55,10 +55,8 @@ export default {
         }
       )
     },
-    onReset (evt) {
-      evt.preventDefault()
-      this.form.username = ''
-      this.form.password = ''
+    regist (evt) {
+      this.$router.push('/regist')
     }
   }
 }
