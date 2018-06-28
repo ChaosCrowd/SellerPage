@@ -6,7 +6,7 @@ const API_URL = 'http://139.199.71.21:8080/ordering/api/v1'
 
 const myAxios = axios.create({
   baseURL: API_URL,
-  timeout: 2000,
+  timeout: 3000,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': '*',

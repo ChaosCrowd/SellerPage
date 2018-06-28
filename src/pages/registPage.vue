@@ -1,15 +1,19 @@
 <template>
   <div id="registPage" :style="note">
       <registBox></registBox>
+      <productionInfo></productionInfo>
   </div>
 </template>
 
 <script>
 import registBox from '@/components/registBox'
+import productionInfo from '@/components/productionInfo'
+
 export default {
   name: 'registPage',
   components: {
-    registBox
+    registBox,
+    productionInfo
   },
   data () {
     return {
@@ -34,7 +38,14 @@ export default {
 #registBox {
   position: absolute;
   width: 180px;
-  top: 20%;
+  top: 30%;
   right: 10%;
+}
+
+#productionInfo {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 180px;
 }
 </style>

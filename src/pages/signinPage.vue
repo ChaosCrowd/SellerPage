@@ -1,15 +1,19 @@
 <template>
   <div id="signinPage" :style="note">
+      <productionInfo></productionInfo>
       <signinBox></signinBox>
   </div>
 </template>
 
 <script>
 import signinBox from '@/components/signinBox'
+import productionInfo from '@/components/productionInfo'
+
 export default {
   name: 'signinPage',
   components: {
-    signinBox
+    signinBox,
+    productionInfo
   },
   data () {
     return {
@@ -36,5 +40,12 @@ export default {
   width: 180px;
   top: 30%;
   right: 10%;
+}
+
+#productionInfo {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 180px;
 }
 </style>

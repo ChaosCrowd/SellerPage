@@ -110,8 +110,8 @@ const actions = {
       } else if (response.status === 403) {
         alert('getUnacceptedOrderList fails!')
       }
-    }, response => {
-      alert('getUnacceptedOrderList fails!')
+    }, err => {
+      console.error(err)
     })
   },
 

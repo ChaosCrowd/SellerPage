@@ -36,13 +36,13 @@ export default {
     }).then(() => {
       setTimeout(() => {
         this.$store.dispatch('order/getUnacceptedOrderList')
-      }, 500)
+      }, 600)
       setTimeout(() => {
         this.$store.dispatch('order/getAcceptedOrderList')
       }, 1000)
       setTimeout(() => {
         this.$store.dispatch('order/getFinishedOrderList')
-      }, 1500)
+      }, 1400)
     })
   }
 }
