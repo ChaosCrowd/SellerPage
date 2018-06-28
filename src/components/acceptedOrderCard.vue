@@ -16,7 +16,8 @@
         </template>
       </b-table>
     </div>
-    <button @click="finishOrder">完成订单</button>
+    <b-button @click="finishOrder"
+              class="btn btn-outline-secondary acceptedOrderCardButton">完成订单</b-button>
   </div>
 </template>
 
@@ -108,6 +109,19 @@ export default {
 #acceptedOrderState {
   cursor: pointer;
   margin: 0;
+}
+
+#acceptedOrderCardBody {
+  margin: 0 0 10px 0;
+}
+
+.acceptedOrderCardButton {
+  font-size: 9pt;
+  border-radius: 0%;
+  border: 1px solid rgba(47, 48, 48, 0.671);
+  font-weight: bold;
+  padding: 4px 8px 4px 8px;
+  color: rgba(47, 48, 48, 0.671);
 }
 
 </style>

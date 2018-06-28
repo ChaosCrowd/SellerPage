@@ -20,6 +20,8 @@
                       type="text"
                       v-model="form.dishName">
         </b-form-input>
+        <label id="modifyDishNameErrorLabel"
+               ref="modifyDishNameErrorLabel"></label>
       </div>
       <div id="modifyDishPriceGroup">
         <p>价格:</p>
@@ -28,6 +30,8 @@
                       step="0.01"
                       v-model="form.dishPrice">
         </b-form-input>
+        <label id="modifyDishPriceErrorLabel"
+               ref="modifyDishPriceErrorLabel"></label>
       </div>
       <div id="modifyBelongedCategoryGroup">
         <p>所属类别:</p>
@@ -59,6 +63,8 @@
 </template>
 
 <script>
+import tool from '@/tool/tool'
+
 export default {
   name: 'modifyDishBox',
   props: ['dishID'],
@@ -73,15 +79,36 @@ export default {
         categoryID: []
       },
       oldDishImg: '',
-      options: []
+      options: [],
+      errorMsg: {
+        dishNameErrorMsg: '',
+        dishPriceErrorMsg: ''
+      }
     }
   },
   computed: {
   },
   methods: {
     confirmModify (event) {
-      this.$store.dispatch('dish/modifyDish', this.form)
-      this.$emit('closeSelf')
+      this.errorMsg.dishNameErrorMsg = tool.isValidDishName(this.form.dishName)
+      this.errorMsg.dishPriceErrorMsg = tool.isValidPrice(this.form.dishPrice)
+
+      this.$refs['modifyDishNameErrorLabel'].innerText = this.errorMsg.dishNameErrorMsg
+      this.$refs['modifyDishPriceErrorLabel'].innerText = this.errorMsg.dishPriceErrorMsg
+
+      for (var index in this.errorMsg) {
+        if (this.errorMsg[index] !== '') {
+          alert('输入信息有误')
+          return
+        }
+      }
+
+      this.$store.dispatch('dish/modifyDish', this.form).then(dishName => {
+        alert(dishName + ' 修改成功')
+        this.$emit('closeSelf')
+      }, errorMsg => {
+        console.log(errorMsg)
+      })
     },
     cancelModify (event) {
       this.$emit('closeSelf')
@@ -205,29 +232,44 @@ export default {
 }
 
 #modifyDishNameGroup, #modifyDishPriceGroup{
+  position: relative;
   /* display: inline; */
   display: flex;
   flex-wrap: wrap;
   text-align: left;
   font-size: 10pt;
   width: 60%;
+  margin: 0 0 20px 0;
 }
 
 #modifyDishNameInput, #modifyDishPriceInput{
   font-size: 10pt;
   width: 70%;
   padding: 4px 6px 4px 6px;
+  margin: 0;
 }
 
 #modifyDishNameGroup>p, #modifyDishPriceGroup>p{
   width: 40px;
   margin: 0;
-  padding: 10px 0 0 0;
+  padding: 4px 0 0 0;
+}
+
+#modifyBelongedCategoryGroup {
+  margin: 0 0 10px 0;
 }
 
 #modifyBelongedCategoryGroup>p, #modifyDishDescriptionGroup>p {
   text-align: left;
   margin: 5px 0 5px 0;
+}
+
+#modifyDishNameErrorLabel, #modifyDishPriceErrorLabel {
+  position: absolute;
+  top: 27px;
+  left: 45px;
+  color: rgb(233, 102, 102);
+  font-size: 8pt;
 }
 
 #modifyDishImgInput {

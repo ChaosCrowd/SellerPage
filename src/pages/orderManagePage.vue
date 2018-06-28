@@ -2,18 +2,21 @@
   <div id="orderManagePage">
     <unacceptedOrderList></unacceptedOrderList>
     <acceptedOrderList></acceptedOrderList>
+    <finishedOrderList></finishedOrderList>
   </div>
 </template>
 
 <script>
 import unacceptedOrderList from '@/components/unacceptedOrderList'
 import acceptedOrderList from '@/components/acceptedOrderList'
+import finishedOrderList from '@/components/finishedOrderList'
 
 export default {
   name: 'orderManagePage',
   components: {
     unacceptedOrderList,
-    acceptedOrderList
+    acceptedOrderList,
+    finishedOrderList
   },
   mounted () {
   }

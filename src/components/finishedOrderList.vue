@@ -1,15 +1,15 @@
 <template>
-  <div id="unacceptedOrderListContainer">
-    <h5>未接受</h5>
-    <div id="unacceptedOrderListBody">
-      <div v-for="(order, index) in unacceptedOrderList" :key="order.orderID">
-        <div @click="toggleUnacceptedOrder(index)" class="unacceptedOrderViewBox">
-          <div id="unacceptedOrderIDBox">订单号: {{ order.orderID }}</div>
-          <div id="unacceptedTableIDBox">桌号: {{ order.tableID }}</div>
+  <div id="finishedOrderListContainer">
+    <h5>已完成</h5>
+    <div id="finishedOrderListBody">
+      <div v-for="(order, index) in finishedOrderList" :key="order.orderID">
+        <div @click="toggleFinishedOrder(index)" class="finishedOrderViewBox">
+          <div id="finishedOrderIDBox">订单号: {{ order.orderID }}</div>
+          <div id="finishedTableIDBox">桌号: {{ order.tableID }}</div>
         </div>
         <!-- isShow不能加this!!! -->
         <b-collapse v-model="isShow[index]" id="order.orderID" :key="order.orderID">
-          <unacceptedOrderCard :orderID="order.orderID"></unacceptedOrderCard>
+          <finishedOrderCard :orderID="order.orderID"></finishedOrderCard>
         </b-collapse>
       </div>
     </div>
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import unacceptedOrderCard from '@/components/unacceptedOrderCard'
+import finishedOrderCard from '@/components/finishedOrderCard'
 
 export default {
-  name: 'unacceptedOrderList',
+  name: 'finishedOrderList',
   components: {
-    unacceptedOrderCard
+    finishedOrderCard
   },
   data () {
     return {
@@ -31,23 +31,23 @@ export default {
     }
   },
   computed: {
-    unacceptedOrderList () {
+    finishedOrderList () {
       // 如果store中用Map,那么这里必定要把Map转为Array,
       // 因为v-for不支持Map(tracker也没用)
       // 所以如果要提高效率,就需要把store中结构换成array
       var temp = []
       // 手动追踪
       // eslint-disable-next-line
-      this.$store.state.order.unacceptedOrderListTracker
+      this.$store.state.order.finishedOrderListTracker
       // eslint-disable-next-line
-      this.$store.state.order.unacceptedOrderList.forEach(e => {
+      this.$store.state.order.finishedOrderList.forEach(e => {
         temp.push(e)
       })
       return temp
     }
   },
   methods: {
-    toggleUnacceptedOrder (index) {
+    toggleFinishedOrder (index) {
       // alert(index)
       this.isShow[index] = !this.isShow[index]
       // eslint-disable-next-line
@@ -59,7 +59,7 @@ export default {
   },
   mounted () {
     // this.isShow = [false, false]
-    this.$store.state.order.unacceptedOrderList.forEach((e) => {
+    this.$store.state.order.finishedOrderList.forEach((e) => {
       this.isShow.push(false)
     })
   }
@@ -67,22 +67,21 @@ export default {
 </script>
 
 <style>
-#unacceptedOrderListContainer {
+#finishedOrderListContainer {
   width: 200px;
-  margin: 30px 0 0 5%;
+  margin: 30px auto 0 5%;
 }
 
-#unacceptedOrderListBody {
+#finishedOrderListBody {
   box-shadow: 2px 2px 5px #888888;
 }
 
-#unacceptedOrderListContainer>h5 {
+h5 {
   text-align: left;
   padding-left: 10px;
-  margin: 0 0 18px 0;
 }
 
-.unacceptedOrderViewBox {
+.finishedOrderViewBox {
   background: white;
   cursor: pointer;
   user-select: none;
@@ -92,12 +91,12 @@ export default {
   transition: 0.2s;
 }
 
-.unacceptedOrderViewBox:hover {
+.finishedOrderViewBox:hover {
   transform: scale(1.05);
   z-index: 1;
 }
 
-#unacceptedOrderIDBox, #unacceptedTableIDBox {
+#finishedOrderIDBox, #finishedTableIDBox {
   width: 45%;
 }
 </style>

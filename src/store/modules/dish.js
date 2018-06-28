@@ -122,7 +122,7 @@ const actions = {
     categoryAPI.addCategory(data, response => {
       if (response.status === 200) {
         commit('addCategory', response.data.data)
-      } else if (response.status === 403) {
+      } else {
         alert('addCategory fails')
       }
     }, response => {
@@ -135,7 +135,7 @@ const actions = {
     categoryAPI.delCategory(data, response => {
       if (response.status === 200) {
         commit('delCategory', response.data.data)
-      } else if (response.status === 403) {
+      } else {
         alert('delCategory fails!')
       }
     }, response => {
@@ -150,7 +150,7 @@ const actions = {
         if (response.status === 200) {
           commit('renameCategory', response.data.data)
           resolve()
-        } else if (response.status === 403) {
+        } else {
           reject(new Error('renameCategory fails!'))
         }
       }, response => {
@@ -166,7 +166,7 @@ const actions = {
           console.log('!!!!!' + JSON.stringify(response.data.data))
           commit('getCategoryInfo', response.data.data)
           resolve()
-        } else if (response.status === 403) {
+        } else {
           // alert('getCategoryInfo fails!')
           reject(new Error('getCategoryInfo fails!'))
         }
@@ -178,14 +178,17 @@ const actions = {
   },
 
   addDish ({ commit }, data) {
-    dishAPI.addDish(data, response => {
-      if (response.status === 200) {
-        commit('addDish', response.data.data)
-      } else if (response.status === 403) {
-        alert('addDish fail!')
-      }
-    }, response => {
-      alert('addDish fail!')
+    return new Promise((resolve, reject) => {
+      dishAPI.addDish(data, response => {
+        if (response.status === 200) {
+          commit('addDish', response.data.data)
+          resolve(response.data.data.dishInfo.dishName)
+        } else {
+          alert('addDish fail!')
+        }
+      }, err => {
+        reject(err.response.data.msg)
+      })
     })
   },
 
@@ -193,7 +196,7 @@ const actions = {
     dishAPI.delDish(data, response => {
       if (response.status === 200) {
         commit('delDish', response.data.data)
-      } else if (response.status === 403) {
+      } else {
         alert('delDish fail!')
       }
     }, response => {
@@ -202,14 +205,17 @@ const actions = {
   },
 
   modifyDish ({ commit }, data) {
-    dishAPI.modifyDish(data, response => {
-      if (response.status === 200) {
-        commit('modifyDish', response.data.data)
-      } else if (response.status === 403) {
-        alert('modifyDish fail!')
-      }
-    }, response => {
-      alert('modifyDish fail!')
+    return new Promise((resolve, reject) => {
+      dishAPI.modifyDish(data, response => {
+        if (response.status === 200) {
+          commit('modifyDish', response.data.data)
+          resolve(response.data.data.dishInfo.dishName)
+        } else {
+          alert('modifyDish fail!')
+        }
+      }, err => {
+        reject(err.response.data.msg)
+      })
     })
   },
 
@@ -217,7 +223,7 @@ const actions = {
     dishAPI.getDishInfo(data, response => {
       if (response.status === 200) {
         commit('getDishInfo', response.data.data)
-      } else if (response.status === 403) {
+      } else {
         alert('getDishInfo fail! 403')
       }
     }, response => {

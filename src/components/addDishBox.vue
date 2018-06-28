@@ -2,20 +2,26 @@
   <div id="addDishBox">
       <b-form>
         <h2>添加菜品</h2>
-        <b-form-input id="addDishNameInput"
-                      class="btn-outline-secondary"
-                      type="text"
-                      v-model="form.dishName"
-                      placeholder="菜品名称">
-        </b-form-input>
-        <b-form-input id="addDishPriceInput"
-                      class="btn-outline-secondary"
-                      name="dishPrice"
-                      type="number"
-                      step="0.01"
-                      v-model="form.dishPrice"
-                      placeholder="菜品价格">
-        </b-form-input>
+        <b-form-group id="addDishNameGroup"
+                      :description="errorMsg.dishNameErrorMsg">
+          <b-form-input id="addDishNameInput"
+                        class="btn-outline-secondary"
+                        type="text"
+                        v-model="form.dishName"
+                        placeholder="菜品名称">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="addDishPriceGroup"
+                      :description="errorMsg.dishPriceErrorMsg">
+          <b-form-input id="addDishPriceInput"
+                        class="btn-outline-secondary"
+                        name="dishPrice"
+                        type="number"
+                        step="0.01"
+                        v-model="form.dishPrice"
+                        placeholder="菜品价格">
+          </b-form-input>
+        </b-form-group>
         <p id="selectCategoryTitle">选择类别</p>
         <b-form-checkbox-group id="selectCategoryCheckBox"
                                buttons
@@ -54,6 +60,7 @@
 
 <script>
 // import imageAPI from '@/api/imageAPI'
+import tool from '@/tool/tool'
 
 export default {
   name: 'addDishBox',
@@ -61,10 +68,14 @@ export default {
     return {
       form: {
         dishName: '',
-        dishPrice: null,
-        dishImg: null,
+        dishPrice: '',
+        dishImg: '',
         dishDescription: '',
         categoryID: []
+      },
+      errorMsg: {
+        dishNameErrorMsg: '',
+        dishPriceErrorMsg: ''
       }
     }
   },
@@ -82,7 +93,36 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$store.dispatch('dish/addDish', this.form)
+      this.errorMsg.dishNameErrorMsg = tool.isValidDishName(this.form.dishName)
+      this.errorMsg.dishPriceErrorMsg = tool.isValidPrice(this.form.dishPrice)
+
+      for (var index in this.errorMsg) {
+        if (this.errorMsg[index] !== '') {
+          alert('输入信息有误')
+          return
+        }
+      }
+
+      this.$store.dispatch('dish/addDish', this.form).then(dishName => {
+        alert(dishName + ' 添加成功')
+        this.form.dishName = ''
+        this.form.dishPrice = ''
+        this.form.dishImg = ''
+        this.form.dishDescription = ''
+        this.form.categoryID = []
+
+        this.$refs['addDishImgPath'].innerText = ''
+
+        let canvas = this.$refs['addDishImgPreview']
+        let context = canvas.getContext('2d')
+
+        canvas.width = 0
+        canvas.height = 0
+
+        context.clearRect(0, 0, 100, 100)
+      }, errorMsg => {
+        console.log(errorMsg)
+      })
     },
     addDishImg (event) {
       let file = event.target.files[0]
@@ -116,28 +156,6 @@ export default {
         // 画图
         context.drawImage(img, 0, 0, 100, 100)
       }
-
-      // 压缩图片并转成base64
-      // let newData = canvas.toDataURL('image/png', 1)
-      // let files = []
-      // files.push(newData)
-      // eslint-disable-next-line
-      // let tempfile = new File([newData], 'C:/Users/SGAFPZ/Desktop/ttt.txt')
-      // tempfile.open('w')
-      // tempfile.write(newData)
-      // tempfile.close()
-
-      // this.form.dishImg = newData
-      // 发送图片
-      // imageAPI.addImg(newData, response => {
-      //   if (response.status === 200) {
-      //     console.log(response.data.data.imgURL)
-      //   } else {
-      //     console.log('addImg fails!!!!!')
-      //   }
-      // }, err => {
-      //   console.error(err)
-      // })
     }
   }
 }
@@ -145,6 +163,19 @@ export default {
 
 <style>
 /*输入框样式*/
+#addDishNameGroup, #addDishPriceGroup {
+  height: 52px;
+  margin: 0 0 0 0;
+}
+
+#addDishNameGroup small, #addDishPriceGroup small {
+  text-align: left;
+  color: rgb(233, 102, 102) !important;
+  font-size: 8pt;
+  margin: 0 0 0 0;
+  padding-left: 12px;
+}
+
 #addDishNameInput, #addDishPriceInput, #addDishDescriptionInput {
   box-shadow: rgba(0, 0, 0, 0.117647) 1px 2px 6px, rgba(0, 0, 0, 0.117647) 1px 2px 6px;
   border-radius: 0%;
@@ -153,6 +184,7 @@ export default {
   opacity: 0.7;
   /* border-color: #6c757d; */
   color: white;
+  margin: 0;
 }
 
 #addDishNameInput:focus, #addDishPriceInput:focus, #addDishDescriptionInput:focus {

@@ -158,7 +158,9 @@ export default {
   height: 80px;
   margin: 5px;
   padding: 5pt 0 0 0;
-  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  background-color: rgb(253, 240, 235);
+  opacity: 0.7;
+  box-shadow: rgba(0, 0, 0, 0.253) 0px 1px 6px, rgba(0, 0, 0, 0.253) 0px 1px 4px;
   transition: .15s all ease-in-out;
 }
 
@@ -198,6 +200,7 @@ export default {
 
 .tableCard>p, .addTableCard>p {
   margin: 0;
+  opacity: 1 !important;
 }
 
 .tableIDText {

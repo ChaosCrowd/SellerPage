@@ -2,9 +2,15 @@
   <div id="modifyBasicInfoBoxContainer">
     <div id="modifyBasicInfoBoxHead">
       <p>店铺信息</p>
-      <button v-show="!isActive" @click="startToModify">修改</button>
-      <button v-show="isActive" @click="confirmModify">确认</button>
-      <button v-show="isActive" @click="cancelModify">取消</button>
+      <b-button v-show="!isActive"
+                @click="startToModify"
+                class="btn btn-outline-secondary modifyBasicInfoButton">修改</b-button>
+      <b-button v-show="isActive"
+                @click="confirmModify"
+                class="btn btn-outline-secondary modifyBasicInfoButton">确认</b-button>
+      <b-button v-show="isActive"
+                @click="cancelModify"
+                class="btn btn-outline-secondary modifyBasicInfoButton">取消</b-button>
     </div>
     <div id="modifyBasicInfoBoxBody">
       <div id="basicInfoNameBox">
@@ -13,6 +19,7 @@
         <b-form-input v-show="isActive"
                       autofocus
                       v-model="newForm.name"
+                      class="modifyBasicInfoInput"
                       id="basicInfoNameInput"></b-form-input>
       </div>
       <div id="basicInfoPhoneBox">
@@ -20,6 +27,7 @@
         <p id="basicInfoPhoneText">{{ this.form.phone }}</p>
         <b-form-input v-show="isActive"
                       v-model="newForm.phone"
+                      class="modifyBasicInfoInput"
                       id="basicInfoPhoneInput"></b-form-input>
       </div>
       <div id="basicInfoLocationBox">
@@ -27,6 +35,7 @@
         <p id="basicInfoLocationText">{{ this.form.location }}</p>
         <b-form-input v-show="isActive"
                       v-model="newForm.location"
+                      class="modifyBasicInfoInput"
                       id="basicInfoLocationInput"></b-form-input>
       </div>
       <div id="basicInfoNoticeBox">
@@ -36,6 +45,7 @@
                         v-model="newForm.notice"
                         :rows="5"
                         :max-rows="5"
+                        class="modifyBasicInfoInput"
                         id="basicInfoNoticeInput"></b-form-textarea>
       </div>
     </div>
@@ -121,6 +131,12 @@ export default {
   font-size: 8pt;
 }
 
+.modifyBasicInfoButton {
+  border-radius: 0%;
+  border: none;
+  padding: 4px 8px 4px 8px;
+}
+
 #modifyBasicInfoBoxBody {
   position: relative;
 }
@@ -175,6 +191,16 @@ export default {
   font-size: 10pt;
   top: 39.5px;
   left: 0;
+}
+
+.modifyBasicInfoInput {
+  border-radius: 0%;
+  border-color: rgba(108, 117, 125, 0.5);
+}
+
+.modifyBasicInfoInput:focus {
+  border-color: rgba(108, 117, 125, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 }
 
 </style>
