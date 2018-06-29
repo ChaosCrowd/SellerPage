@@ -41,6 +41,7 @@ export default {
   name: 'navBar',
   methods: {
     signout (event) {
+      this.$router.push('/signin')
       window.localStorage.removeItem('data')
       window.location.reload()
     }

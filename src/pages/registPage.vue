@@ -35,7 +35,7 @@ export default {
 <style>
 #registPage {
   width: 100%;
-  min-height: 600px;
+  min-height: 625px;
 }
 
 #registBox {

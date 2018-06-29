@@ -21,7 +21,7 @@ export default {
   data () {
     return {
       note: {
-        backgroundImage: 'url(' + require('../assets/bgi.png') + ')',
+        backgroundImage: 'url(' + require('@/assets/bgi.png') + ')',
         backgroundRepeat: 'repeat',
         backgroundSize: '100% 100%',
         backgroundAttachment: 'fixed',
@@ -36,7 +36,7 @@ export default {
 #signinPage {
   position: relative;
   width: 100%;
-  min-height: 600px;
+  min-height: 625px;
 }
 
 #signinBox {

@@ -32,6 +32,7 @@ export default new Router({
       children: [
         {
           path: 'dishManage',
+          name: 'dishManage',
           component: dishManagePage,
           meta: {
             needSignin: true
@@ -39,6 +40,7 @@ export default new Router({
         },
         {
           path: 'orderManage',
+          name: 'orderManage',
           component: orderManagePage,
           meta: {
             needSignin: true
@@ -46,12 +48,17 @@ export default new Router({
         },
         {
           path: 'storeManage',
+          name: 'storeManage',
           component: storeManagePage,
           meta: {
             needSignin: true
           }
         }
       ]
+    },
+    {
+      path: '*',
+      component: signinPage
     }
   ]
 })

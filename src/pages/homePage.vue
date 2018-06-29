@@ -16,7 +16,7 @@ export default {
   data () {
     return {
       note: {
-        backgroundImage: 'url(' + require('../assets/Wallpaper1.png') + ')',
+        backgroundImage: 'url(' + require('@/assets/homebgi.png') + ')',
         backgroundRepeat: 'repeat',
         backgroundSize: '100% 100%',
         backgroundAttachment: 'fixed',
@@ -51,7 +51,7 @@ export default {
 <style>
 #homePage {
   width: 100%;
-  min-height: 600px;
+  min-height: 625px;
   margin-top: 55px !important;
   /* margin-bottom: -30px !important; */
   /* height: 600px; */
