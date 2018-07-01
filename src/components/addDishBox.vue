@@ -140,7 +140,7 @@ export default {
       // 读取完图片后把图片赋给img
       reader.onloadend = (e) => {
         img.src = e.target.result
-        // console.log(reader.result)
+        console.log(e.target === reader)
         this.form.dishImg = reader.result
       }
 

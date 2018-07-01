@@ -13,6 +13,11 @@ const state = {
 const getters = {}
 
 const mutations = {
+  addUnacceptedOrder (state, data) {
+    state.unacceptedOrderList.set(data.orderID, data)
+    state.unacceptedOrderListTracker += 1
+  },
+
   getUnacceptedOrderList (state, data) {
     data.forEach(e => {
       if (!state.unacceptedOrderList.has(e.orderID)) {
@@ -101,6 +106,9 @@ const mutations = {
 }
 
 const actions = {
+  addUnacceptedOrder ({ commit }, data) {
+    commit('addUnacceptedOrder', data)
+  },
 
   getUnacceptedOrderList ({ commit }) {
     orderAPI.getOrderInfo({ orderState: 'unaccepted' }, response => {

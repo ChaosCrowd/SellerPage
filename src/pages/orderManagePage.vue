@@ -19,6 +19,19 @@ export default {
     finishedOrderList
   },
   mounted () {
+    // var ws = new WebSocket('ws://172.18.156.83:8080/myHandler')
+    // ws.onopen = function () {
+    //   console.log('onpen')
+    //   ws.send('{}')
+    // }
+
+    // ws.onclose = function () {
+    //   console.log('onclose')
+    // }
+
+    // ws.onmessage = function (msg) {
+    //   console.log(msg.data)
+    // }
   }
 }
 </script>

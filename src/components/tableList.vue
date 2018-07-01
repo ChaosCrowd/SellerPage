@@ -80,6 +80,7 @@ export default {
   },
   methods: {
     showQRCode (table) {
+      this.qrcodeSetting.value = 'http://139.199.71.21:8888/#/table/' + table.tableID
       this.qrcodeFlag = true
       this.tableFlag = false
       this.selectedTableID = table.tableID

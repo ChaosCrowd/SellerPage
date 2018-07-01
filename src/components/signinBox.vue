@@ -61,16 +61,21 @@ export default {
       userAPI.signin(this.form,
         response => {
           if (response.status === 200) {
+            // eslint-disable-next-line
             window.localStorage.setItem('data', true)
             this.$router.push('/home/dishManage')
           }
         },
         err => {
-          // console.log(JSON.stringify(err.response))
-          if (err.response.status === 401) {
-            alert('用户名不存在或密码错误')
-          } else {
-            alert('登录失败')
+          try {
+            // console.log(JSON.stringify(err.response))
+            if (err.response.status === 401) {
+              alert('用户名不存在或密码错误')
+            } else {
+              alert('登录失败')
+            }
+          } catch (err) {
+            console.log('与服务器连接失败')
           }
         }
       )

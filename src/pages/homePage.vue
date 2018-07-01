@@ -44,6 +44,27 @@ export default {
         this.$store.dispatch('order/getFinishedOrderList')
       }, 1400)
     })
+    var that = this
+    var myws = new WebSocket('ws://139.199.71.21:8080/ordering/myHandler')
+    myws.onmessage = function (event) {
+      // var newOrder = JSON.parse(data)
+      try {
+        var newOrder = JSON.parse(event.data)
+        if (newOrder.orderID) {
+          that.$store.dispatch('order/addUnacceptedOrder', newOrder)
+        }
+      } catch (err) {
+        console.log('websocket 接收数据解析失败')
+      }
+    }
+    myws.onopen = function () {
+      console.log('onpen')
+      myws.send('{}')
+    }
+
+    myws.onclose = function () {
+      console.log('onclose')
+    }
   }
 }
 </script>

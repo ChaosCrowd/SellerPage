@@ -50,7 +50,7 @@ export default {
     this.orderInfo.specificOrderContent = []
     // alert(JSON.stringify(this.orderInfo.orderContent))
     this.orderInfo.orderContent.forEach(e => {
-      // alert(e.dishID)
+    // alert(e.dishID)
       var dishInfo = this.$store.state.dish.dishMap.get(e.dishID)
       // alert(JSON.stringify(dishInfo))
       this.orderInfo.specificOrderContent.push({
