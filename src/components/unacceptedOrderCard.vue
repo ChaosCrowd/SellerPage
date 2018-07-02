@@ -52,11 +52,14 @@ export default {
     this.orderInfo.orderContent.forEach(e => {
     // alert(e.dishID)
       var dishInfo = this.$store.state.dish.dishMap.get(e.dishID)
-      // alert(JSON.stringify(dishInfo))
+      if (dishInfo === undefined) {
+        dishInfo = this.$store.state.dish.deletedDishMap.get(e.dishID)
+      }
       this.orderInfo.specificOrderContent.push({
         菜名: dishInfo.dishName,
         单价: dishInfo.dishPrice,
-        数量: e.dishNum
+        数量: e.dishNum,
+        _rowVariant: 'none'
       })
     })
   }

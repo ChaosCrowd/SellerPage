@@ -18,5 +18,8 @@ export default {
   },
   getDishInfo (data, onSuccess, onError) {
     apiConstant.myAxios.get('query/dish', { params: data }).then(onSuccess, onError)
+  },
+  getDeletedDishInfo (data, onSuccess, onError) {
+    apiConstant.myAxios.get('query/deletedDish', { params: data }).then(onSuccess, onError)
   }
 }

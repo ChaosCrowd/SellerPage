@@ -17,6 +17,9 @@ Vue.use(BootstrapVue)
 router.beforeEach((to, from, next) => {
   if (to.meta.needSignin) {
     if (window.localStorage.data) {
+      if (from.path === '/' && to.path === '/home/orderManage') {
+        next('/home/dishManage')
+      }
       next()
     } else {
       alert('请先登录')

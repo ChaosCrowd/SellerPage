@@ -48,7 +48,12 @@ export default {
     this.orderInfo.orderContent.forEach(e => {
       // alert(e.dishID)
       var dishInfo = this.$store.state.dish.dishMap.get(e.dishID)
-      // alert(JSON.stringify(dishInfo))
+      // console.log(dishInfo)
+      // alert(dishInfo)
+      if (dishInfo === undefined) {
+        dishInfo = this.$store.state.dish.deletedDishMap.get(e.dishID)
+        // console.log(dishInfo)
+      }
       this.orderInfo.specificOrderContent.push({
         菜名: dishInfo.dishName,
         单价: dishInfo.dishPrice,

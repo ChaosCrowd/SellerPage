@@ -111,39 +111,48 @@ const actions = {
   },
 
   getUnacceptedOrderList ({ commit }) {
-    orderAPI.getOrderInfo({ orderState: 'unaccepted' }, response => {
-      if (response.status === 200) {
-        // alert(JSON.stringify(response.data))
-        commit('getUnacceptedOrderList', response.data.data)
-      } else if (response.status === 403) {
-        alert('getUnacceptedOrderList fails!')
-      }
-    }, err => {
-      console.error(err)
+    return new Promise((resolve, reject) => {
+      orderAPI.getOrderInfo({ orderState: 'unaccepted' }, response => {
+        if (response.status === 200) {
+          // alert(JSON.stringify(response.data))
+          commit('getUnacceptedOrderList', response.data.data)
+          resolve()
+        } else if (response.status === 403) {
+          alert('getUnacceptedOrderList fails!')
+        }
+      }, err => {
+        console.error(err)
+      })
     })
   },
 
   getAcceptedOrderList ({ commit }) {
-    orderAPI.getOrderInfo({ orderState: 'accepted' }, response => {
-      if (response.status === 200) {
-        commit('getAcceptedOrderList', response.data.data)
-      } else if (response.status === 403) {
+    return new Promise((resolve, reject) => {
+      orderAPI.getOrderInfo({ orderState: 'accepted' }, response => {
+        if (response.status === 200) {
+          commit('getAcceptedOrderList', response.data.data)
+          resolve()
+        } else if (response.status === 403) {
+          alert('getAcceptedOrderList fails!')
+        }
+      }, response => {
         alert('getAcceptedOrderList fails!')
-      }
-    }, response => {
-      alert('getAcceptedOrderList fails!')
+      })
     })
   },
 
   getFinishedOrderList ({ commit }) {
-    orderAPI.getOrderInfo({ orderState: 'finished' }, response => {
-      if (response.status === 200) {
-        commit('getFinishedOrderList', response.data.data)
-      } else if (response.status === 403) {
+    return new Promise((resolve, reject) => {
+      orderAPI.getOrderInfo({ orderState: 'finished' }, response => {
+        if (response.status === 200) {
+          commit('getFinishedOrderList', response.data.data)
+          resolve()
+        } else if (response.status === 403) {
+          alert('getFinishedOrderList fails!')
+        }
+      }, response => {
         alert('getFinishedOrderList fails!')
-      }
-    }, response => {
-      alert('getFinishedOrderList fails!')
+      })
     })
   },
 

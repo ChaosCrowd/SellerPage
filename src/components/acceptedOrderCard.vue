@@ -63,8 +63,12 @@ export default {
     this.localOrderInfo.time = (new Date(this.localOrderInfo.time)).toLocaleString()
     this.localOrderInfo.specificOrderContent = []
     this.localOrderInfo.orderContent.forEach((e) => {
+      var dishInfo = this.$store.state.dish.dishMap.get(e.dishID)
+      if (dishInfo === undefined) {
+        dishInfo = this.$store.state.dish.deletedDishMap.get(e.dishID)
+      }
       this.localOrderInfo.specificOrderContent.push({
-        菜名: this.$store.state.dish.dishMap.get(e.dishID).dishName,
+        菜名: dishInfo.dishName,
         数量: e.dishNum,
         state: '等待中',
         _rowVariant: 'none',

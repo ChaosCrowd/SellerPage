@@ -29,20 +29,47 @@ export default {
       this.$store.state.dish.all.forEach((e, key) => {
         setTimeout(() => {
           this.$store.dispatch('dish/getDishInfo', { categoryID: e.categoryID })
-        }, 100 * key)
+        }, 50 * key)
       })
     }, err => {
       console.error(err)
     }).then(() => {
       setTimeout(() => {
-        this.$store.dispatch('order/getUnacceptedOrderList')
-      }, 600)
+        this.$store.dispatch('order/getUnacceptedOrderList').then(() => {
+          this.$store.state.order.unacceptedOrderList.forEach(e => {
+            e.orderContent.forEach(dishInfo => {
+              if (!this.$store.state.dish.dishMap.has(dishInfo.dishID) &&
+                  !this.$store.state.dish.deletedDishMap.has(dishInfo.dishID)) {
+                this.$store.dispatch('dish/getDeletedDishInfo', { dishID: dishInfo.dishID })
+              }
+            })
+          })
+        })
+      }, 300)
       setTimeout(() => {
-        this.$store.dispatch('order/getAcceptedOrderList')
-      }, 1000)
+        this.$store.dispatch('order/getAcceptedOrderList').then(() => {
+          this.$store.state.order.acceptedOrderList.forEach(e => {
+            e.orderContent.forEach(dishInfo => {
+              if (!this.$store.state.dish.dishMap.has(dishInfo.dishID) &&
+                  !this.$store.state.dish.deletedDishMap.has(dishInfo.dishID)) {
+                this.$store.dispatch('dish/getDeletedDishInfo', { dishID: dishInfo.dishID })
+              }
+            })
+          })
+        })
+      }, 400)
       setTimeout(() => {
-        this.$store.dispatch('order/getFinishedOrderList')
-      }, 1400)
+        this.$store.dispatch('order/getFinishedOrderList').then(() => {
+          this.$store.state.order.finishedOrderList.forEach(e => {
+            e.orderContent.forEach(dishInfo => {
+              if (!this.$store.state.dish.dishMap.has(dishInfo.dishID) &&
+                  !this.$store.state.dish.deletedDishMap.has(dishInfo.dishID)) {
+                this.$store.dispatch('dish/getDeletedDishInfo', { dishID: dishInfo.dishID })
+              }
+            })
+          })
+        })
+      }, 500)
     })
     var that = this
     var myws = new WebSocket('ws://139.199.71.21:8080/ordering/myHandler')

@@ -7,7 +7,9 @@ const state = {
   dishMap: new Map(),
   relationMap: new Map(),
   dishMapChange: 0,
-  relationMapChange: 0
+  relationMapChange: 0,
+  deletedDishMap: new Map(),
+  deletedDishMapTracker: 0
 }
 
 const getters = {}
@@ -113,6 +115,13 @@ const mutations = {
         state.relationMap.get(data.categoryID[0]).add(element.dishID)
       }
     })
+  },
+  getDeletedDishInfo (state, data) {
+    state.deletedDishMapTracker += 1
+    // console.log('In mutation getDeletedDishInfo:' + JSON.stringify(data) + data.dishID)
+    if (!state.deletedDishMap.has(data.dishID)) {
+      state.deletedDishMap.set(data.dishID, data)
+    }
   }
 }
 
@@ -220,14 +229,30 @@ const actions = {
   },
 
   getDishInfo ({ commit }, data) {
-    dishAPI.getDishInfo(data, response => {
-      if (response.status === 200) {
-        commit('getDishInfo', response.data.data)
-      } else {
-        alert('getDishInfo fail! 403')
-      }
-    }, response => {
-      alert('getDishInfo fail!!!')
+    return new Promise((resolve, reject) => {
+      dishAPI.getDishInfo(data, response => {
+        if (response.status === 200) {
+          commit('getDishInfo', response.data.data)
+          resolve(response.data.data)
+        } else {
+          console.log('getDishInfo fails!')
+        }
+      }, err => {
+        reject(err)
+      })
+    })
+  },
+
+  getDeletedDishInfo ({ commit }, data) {
+    // alert(JSON.stringify(data.dishID))
+    return new Promise((resolve, reject) => {
+      dishAPI.getDeletedDishInfo(data, response => {
+        response.data.data.dishID = data.dishID
+        commit('getDeletedDishInfo', response.data.data)
+        resolve(response.data.data)
+      }, err => {
+        reject(err)
+      })
     })
   }
 }
