@@ -4,7 +4,7 @@
       <div v-on:click="showAddCategoryBox"
            id="addCategoryButton"
            class="categoryCard">
-        <b-img-lazy src="http://i1.bvimg.com/645609/410f489eb4657367.png"
+        <b-img-lazy src="http://139.199.71.21:8080/image/add.png"
                     width="45"
                     height="45">
         </b-img-lazy>
